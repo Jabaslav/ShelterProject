@@ -9,21 +9,16 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_follows")
-@IdClass(UserFollows.UserFollowsId.class)  // Для составного первичного ключа
+@IdClass(UserFollowsId.class)  // Для составного первичного ключа
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserFollows {
 
-    @Embeddable
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class UserFollowsId implements Serializable {
-        private Long followerId;
-        private Long followingId;
-    }
+    // Класс для составного ID
+    @EmbeddedId
+    UserFollowsId userFollowsId;
 
     @Id
     @Column(name = "follower_id", nullable = false)
@@ -46,5 +41,3 @@ public class UserFollows {
     @JoinColumn(name = "following_id", insertable = false, updatable = false)
     private User following;
 }
-
-// Класс для составного ID

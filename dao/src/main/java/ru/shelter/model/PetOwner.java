@@ -13,17 +13,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@IdClass(PetOwner.PetOwnerId.class)  // Для составного ключа
+@IdClass(PetOwnerId.class)  // Для составного ключа
 public class PetOwner {
 
     // Составной первичный ключ
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PetOwnerId implements Serializable {
-        private Long user;
-        private Long pet;
-    }
+    @EmbeddedId
+    PetOwnerId petOwnerId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -49,3 +44,4 @@ public class PetOwner {
     // @Column(name = "ownership_since")
     // private LocalDate ownershipSince;
 }
+

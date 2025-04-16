@@ -10,17 +10,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@IdClass(ChatParticipant.ChatParticipantId.class) // Для составного ключа
+@IdClass(ChatParticipantId.class) // Для составного ключа
 public class ChatParticipant {
 
     // Составной первичный ключ
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ChatParticipantId implements Serializable {
-        private Long chat;
-        private Long participant;
-    }
+    @EmbeddedId
+    ChatParticipantId chatParticipantIdId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,3 +46,4 @@ public class ChatParticipant {
         ADMIN, MODERATOR, DEFAULT
     }
 }
+

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "friend_list")
-@IdClass(FriendList.FriendListId.class)  // Для составного первичного ключа
+@IdClass(FriendListId.class)  // Для составного первичного ключа
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,14 +18,8 @@ import java.time.LocalDateTime;
 public class FriendList {
 
     // Класс для составного ID
-    @Embeddable
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class FriendListId implements Serializable {
-        private Long userId;
-        private Long FriendId;
-    }
+    @EmbeddedId
+    FriendListId friendListId;
 
     @Id
     @Column(name = "user_id", nullable = false)

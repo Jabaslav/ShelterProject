@@ -10,17 +10,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@IdClass(PublishedPet.PublishedPetId.class)  // Для составного ключа
+@IdClass(PublishedPetId.class)  // Для составного ключа
 public class PublishedPet {
 
     // Составной первичный ключ
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class PublishedPetId implements Serializable {
-        private Long pet;
-        private Long post;
-    }
+    @EmbeddedId
+    PublishedPetId publishedPetId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,3 +41,4 @@ public class PublishedPet {
     // @Column(name = "publication_date")
     // private LocalDateTime publicationDate;
 }
+
