@@ -5,15 +5,16 @@ package ru.shelter.Interfaces;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface ServiceInterface<T, ID> {
-    T add(T Object);
+// RQ и RS - Request и Response, соответственно
+public interface ServiceInterface<RQ, RS, ID> {
+    RS add(RQ Object);
 
-    Optional<T> get(ID id);
+    Optional<RS> get(ID id);
 
-    boolean update(T Object, ID id);
+    boolean update(RQ Object, ID id);
 
     boolean remove(ID id);
 
-    ArrayList<T> getAll();
+    ArrayList<RS> getAll();
 }
 

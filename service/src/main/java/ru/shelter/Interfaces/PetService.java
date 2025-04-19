@@ -1,6 +1,8 @@
 package ru.shelter.Interfaces;
 
-import ru.shelter.dto.PetDto;
+import ru.shelter.dto.request.PetCreateRequestDto;
 
-public interface PetService extends ServiceInterface<PetDto, Long>{
+import ru.shelter.dto.response.PetResponseDto;
+
+public interface PetService extends ServiceInterface<PetCreateRequestDto, PetResponseDto, Long>{
 }

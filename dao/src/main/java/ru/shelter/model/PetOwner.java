@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pet_owners")
@@ -40,8 +41,8 @@ public class PetOwner {
     @ToString.Exclude
     private Pet pet;
 
-    // Дополнительные поля (если нужны)
-    // @Column(name = "ownership_since")
-    // private LocalDate ownershipSince;
+     //Дополнительные поля (если нужны)
+     @Column(name = "ownership_since")
+     private LocalDateTime ownershipCreationTime;
 }
 

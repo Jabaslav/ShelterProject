@@ -2,7 +2,9 @@ package ru.shelter.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,14 +19,19 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
-    private Long chatId;
+    private Long id;
 
     @Column(name = "chat_name", length = 50)
-    private String chatName;
+    private String name;
 
     @Column(name = "chat_pic_addr", length = 50)
-    private String chatPicAddress;
+    private String imageAddress;
+
+    @CreationTimestamp
+    @Column(name = "followship_creation_time", updatable = false)
+    private LocalDateTime chatCreationTime;
 
     @OneToMany(mappedBy = "chat")
     private List<Message> messages = new ArrayList<>();
+
 }

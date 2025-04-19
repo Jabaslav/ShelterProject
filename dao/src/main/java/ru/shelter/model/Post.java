@@ -31,7 +31,7 @@ public class Post {
     private User author; // Ссылка на сущность User, а не просто post_author_id
 
     @Column(name = "post_pic_addr", length = 50)
-    private String pictureAddress;
+    private String imageAddress;
 
     @Column(name = "post_description", length = 140)
     private String description;

@@ -1,7 +1,9 @@
 package ru.shelter.Interfaces;
 
 
-import ru.shelter.dto.MessageDto;
+import ru.shelter.dto.request.MessageCreateRequestDto;
+import ru.shelter.dto.response.MessageResponseDto;
 
-public interface MessageService extends ServiceInterface<MessageDto, Long>{
+
+public interface MessageService extends ServiceInterface<MessageCreateRequestDto, MessageResponseDto, Long>{
 }

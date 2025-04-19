@@ -2,36 +2,37 @@ package ru.shelter.impl;
 
 import org.springframework.stereotype.Service;
 import ru.shelter.Interfaces.PetService;
-import ru.shelter.Interfaces.ServiceInterface;
-import ru.shelter.dto.PetDto;
+import ru.shelter.dto.request.PetCreateRequestDto;
+import ru.shelter.dto.response.PetResponseDto;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class PetImpl implements PetService {
+
     @Override
-    public PetDto add(PetDto Object) {
+    public PetResponseDto add(PetCreateRequestDto Object) {
         return null;
     }
 
     @Override
-    public Optional<PetDto> get(Long id) {
+    public Optional<PetResponseDto> get(Long aLong) {
         return Optional.empty();
     }
 
     @Override
-    public boolean update(PetDto Object, Long id) {
+    public boolean update(PetCreateRequestDto Object, Long aLong) {
         return false;
     }
 
     @Override
-    public boolean remove(Long id) {
+    public boolean remove(Long aLong) {
         return false;
     }
 
     @Override
-    public ArrayList<PetDto> getAll() {
+    public ArrayList<PetResponseDto> getAll() {
         return null;
     }
 }

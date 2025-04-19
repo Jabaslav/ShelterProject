@@ -2,35 +2,37 @@ package ru.shelter.impl;
 
 import org.springframework.stereotype.Service;
 import ru.shelter.Interfaces.PostService;
-import ru.shelter.dto.PostDto;
+import ru.shelter.dto.request.PostCreateRequestDto;
+import ru.shelter.dto.response.PostResponseDto;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class PostImpl implements PostService {
+
     @Override
-    public PostDto add(PostDto object) {
+    public PostResponseDto add(PostCreateRequestDto Object) {
         return null;
     }
 
     @Override
-    public Optional<PostDto> get(Long id) {
+    public Optional<PostResponseDto> get(Long aLong) {
         return Optional.empty();
     }
 
     @Override
-    public boolean update(PostDto Object, Long id) {
+    public boolean update(PostCreateRequestDto Object, Long aLong) {
         return false;
     }
 
     @Override
-    public boolean remove(Long id) {
+    public boolean remove(Long aLong) {
         return false;
     }
 
     @Override
-    public ArrayList<PostDto> getAll() {
+    public ArrayList<PostResponseDto> getAll() {
         return null;
     }
 }

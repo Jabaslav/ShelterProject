@@ -2,8 +2,9 @@ package ru.shelter.impl;
 
 import org.springframework.stereotype.Service;
 import ru.shelter.Interfaces.ChatParticipantService;
-import ru.shelter.dto.ChatParticipantDto;
-import ru.shelter.dto.UserDto;
+import ru.shelter.dto.request.ChatParticipantRequestDto;
+import ru.shelter.dto.response.ChatParticipantResponseDto;
+import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.interfaces.ChatDao;
 import ru.shelter.model.ChatParticipantId;
 
@@ -12,8 +13,9 @@ import java.util.Optional;
 
 @Service
 public class ChatParticipantImpl implements ChatParticipantService {
+
     @Override
-    public ArrayList<UserDto> findUserByChatId(Long chatId) {
+    public ArrayList<UserResponseDto> findUserByChatId(Long chatId) {
         return null;
     }
 
@@ -23,17 +25,17 @@ public class ChatParticipantImpl implements ChatParticipantService {
     }
 
     @Override
-    public ChatParticipantDto add(ChatParticipantDto object) {
+    public ChatParticipantResponseDto add(ChatParticipantRequestDto Object) {
         return null;
     }
 
     @Override
-    public Optional<ChatParticipantDto> get(ChatParticipantId id) {
+    public Optional<ChatParticipantResponseDto> get(ChatParticipantId chatParticipantId) {
         return Optional.empty();
     }
 
     @Override
-    public boolean update(ChatParticipantDto Object, ChatParticipantId id) {
+    public boolean update(ChatParticipantRequestDto Object, ChatParticipantId chatParticipantId) {
         return false;
     }
 
@@ -43,7 +45,7 @@ public class ChatParticipantImpl implements ChatParticipantService {
     }
 
     @Override
-    public ArrayList<ChatParticipantDto> getAll() {
+    public ArrayList<ChatParticipantResponseDto> getAll() {
         return null;
     }
 }

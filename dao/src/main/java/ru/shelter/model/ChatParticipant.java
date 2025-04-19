@@ -15,7 +15,7 @@ public class ChatParticipant {
 
     // Составной первичный ключ
     @EmbeddedId
-    ChatParticipantId chatParticipantIdId;
+    ChatParticipantId chatParticipantId;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)

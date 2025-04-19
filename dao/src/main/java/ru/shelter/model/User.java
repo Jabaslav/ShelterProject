@@ -5,6 +5,7 @@ import lombok.Data;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,32 +27,38 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long id;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
-    private List<Post> orders = new ArrayList<>();
+    private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
 
     @Column(name = "user_name", nullable = false, length = 30)
-    private String userName;
+    private String name;
 
     @Column(name = "user_birthday_date", nullable = false)
-    private LocalDate userBirthdayDate;
+    private LocalDate birthdayDate;
+
 
     @Column(name = "user_email", unique = true, length = 30)
-    private String userEmail;
+    private String email;
 
     @Column(name = "user_phone_number", unique = true, length = 12)
-    private String userPhoneNumber;
+    private String phoneNumber;
 
     @Column(name = "user_profile_pic_addr", length = 50)
-    private String userProfilePicAddr;
+    private String profilePicAddr;
 
     @Column(name = "salt", nullable = false, length = 15)
     private String salt;
 
     @Column(name = "user_password_hash", nullable = false, length = 128)
-    private String userPasswordHash;
+    private String passwordHash;
+
+    @Column(name="registered_since")
+    private LocalDateTime registerTime;
 }
 
 /*

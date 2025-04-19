@@ -35,7 +35,7 @@ public class FriendList {
 
     @CreationTimestamp
     @Column(name = "friendship_creation_time", updatable = false)
-    private LocalDateTime friendshipCreationTime;
+    private LocalDateTime lastStatusChangeTime;
 
     // Связь с пользователями (может быть ленивой для оптимизации)
     @ManyToOne(fetch = FetchType.LAZY)

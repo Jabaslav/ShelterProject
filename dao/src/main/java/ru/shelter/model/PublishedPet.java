@@ -3,6 +3,7 @@ package ru.shelter.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "published_pets")
@@ -38,7 +39,7 @@ public class PublishedPet {
     private Post post;
 
     // Дополнительные поля (если нужны)
-    // @Column(name = "publication_date")
-    // private LocalDateTime publicationDate;
+     @Column(name = "publication_date")
+     private LocalDateTime petAddedDate;
 }
 

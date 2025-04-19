@@ -69,6 +69,12 @@
             <artifactId>logbook-spring-boot-starter</artifactId>
             <version>3.7.2</version>
         </dependency>
+        <dependency>
+            <groupId>ru.shelter</groupId>
+            <artifactId>service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <properties>

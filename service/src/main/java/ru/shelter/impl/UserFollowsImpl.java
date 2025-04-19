@@ -1,26 +1,28 @@
 package ru.shelter.impl;
 
 import ru.shelter.Interfaces.UserFollowsService;
-import ru.shelter.dto.UserDto;
-import ru.shelter.dto.UserFollowsDto;
+import ru.shelter.dto.request.UserFollowsRequestDto;
+import ru.shelter.dto.response.UserFollowsResponseDto;
+import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.UserFollowsId;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 public class UserFollowsImpl implements UserFollowsService {
+
     @Override
-    public UserFollowsDto add(UserFollowsDto object) {
+    public UserFollowsResponseDto add(UserFollowsRequestDto Object) {
         return null;
     }
 
     @Override
-    public Optional<UserFollowsDto> get(UserFollowsId userFollowsId) {
+    public Optional<UserFollowsResponseDto> get(UserFollowsId userFollowsId) {
         return Optional.empty();
     }
 
     @Override
-    public boolean update(UserFollowsDto Object, UserFollowsId userFollowsId) {
+    public boolean update(UserFollowsRequestDto Object, UserFollowsId userFollowsId) {
         return false;
     }
 
@@ -30,17 +32,17 @@ public class UserFollowsImpl implements UserFollowsService {
     }
 
     @Override
-    public ArrayList<UserFollowsDto> getAll() {
+    public ArrayList<UserFollowsResponseDto> getAll() {
         return null;
     }
 
     @Override
-    public ArrayList<UserDto> findFollowByUserId(Long userId) {
+    public ArrayList<UserResponseDto> findFollowByUserId(Long userId) {
         return null;
     }
 
     @Override
-    public ArrayList<UserDto> findFollowerByUserId(Long userId) {
+    public ArrayList<UserResponseDto> findFollowerByUserId(Long userId) {
         return null;
     }
 }

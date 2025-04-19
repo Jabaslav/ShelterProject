@@ -23,7 +23,7 @@ public class Message {
             foreignKey = @ForeignKey(name = "chat_exists")  // Указываем имя constraint
     )
     @ToString.Exclude
-    private ru.shelter.model.Chat chat;
+    private Chat chat;
 
     // Связь с автором (Many-to-One)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,7 +35,7 @@ public class Message {
     private User author;
 
     @Column(name = "message_pic_addr", length = 50)
-    private String pictureAddress;
+    private String imageAddress;
 
     @Column(name = "message_text", length = 140)
     private String text;

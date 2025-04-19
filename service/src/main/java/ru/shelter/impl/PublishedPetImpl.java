@@ -1,6 +1,8 @@
 package ru.shelter.impl;
 
 import ru.shelter.Interfaces.PublishedPetService;
+import ru.shelter.dto.request.PublishedPetRequestDto;
+import ru.shelter.dto.response.PublishedPetResponseDto;
 import ru.shelter.interfaces.PetDao;
 import ru.shelter.interfaces.PostDao;
 import ru.shelter.model.PublishedPet;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class PublishedPetImpl implements PublishedPetService {
+
     @Override
     public ArrayList<PetDao> findPetByPost(Long postId) {
         return null;
@@ -21,17 +24,17 @@ public class PublishedPetImpl implements PublishedPetService {
     }
 
     @Override
-    public PublishedPet add(PublishedPet object) {
+    public PublishedPetResponseDto add(PublishedPetRequestDto Object) {
         return null;
     }
 
     @Override
-    public Optional<PublishedPet> get(PublishedPetId publishedPetId) {
+    public Optional<PublishedPetResponseDto> get(PublishedPetId publishedPetId) {
         return Optional.empty();
     }
 
     @Override
-    public boolean update(PublishedPet Object, PublishedPetId publishedPetId) {
+    public boolean update(PublishedPetRequestDto Object, PublishedPetId publishedPetId) {
         return false;
     }
 
@@ -41,7 +44,7 @@ public class PublishedPetImpl implements PublishedPetService {
     }
 
     @Override
-    public ArrayList<PublishedPet> getAll() {
+    public ArrayList<PublishedPetResponseDto> getAll() {
         return null;
     }
 }
