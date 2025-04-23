@@ -6,16 +6,13 @@ import lombok.Data;
 import ru.shelter.model.ChatParticipant;
 
 // Дто для добавления пользователя в чат
-@Data
-@AllArgsConstructor
-public class ChatParticipantRequestDto {
 
-    @NotEmpty
-    private final Long chatId;
+public record ChatParticipantRequestDto (
+        @NotEmpty
+         Long chatId,
 
-    @NotEmpty
-    private final Long userId;
+        @NotEmpty
+        Long userId,
 
-    private final ChatParticipant.ParticipantRole role;
-    
-}
+        ChatParticipant.ParticipantRole role
+){};

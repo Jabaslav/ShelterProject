@@ -22,8 +22,8 @@ public class PostImpl implements PostService {
     }
 
     @Override
-    public boolean update(PostCreateRequestDto Object, Long aLong) {
-        return false;
+    public PostResponseDto update(PostCreateRequestDto Object, Long aLong) {
+        return null;
     }
 
     @Override

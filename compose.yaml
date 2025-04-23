@@ -1,1 +1,63 @@
+version: '3'
 services:
+  shelter_db:
+    image: postgres:latest
+    hostname: postgres_db
+    restart: always
+    container_name: shelter_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER_VAL}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_VAL}
+      POSTGRES_DB: ${POSTGRES_DB_VAL}
+    networks:
+      - app-network
+    ports:
+      - "5433:5433"  # Внешний порт 5433 → внутренний 5433
+    volumes:
+      - shelterdb_volume:/var/lib/docker/volumes/shelterdb_volume/_data
+
+  pgdmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: noemail@noemail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
+    networks:
+      - app-network
+
+  api:
+    image: ${API_IMAGE_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: ${POSTGRES_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER_VAL}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD_VAL}
+    networks:
+      - app-network
+    volumes:
+      - ./src/main:/app/src/main
+    restart: always
+    expose:
+      - ${API_PORT}
+      - ${API_PORT_DEBUG}
+    stdin_open: true
+    tty: true
+    ports:
+      - ${API_PORT}:${API_PORT}
+      - ${API_PORT_DEBUG}:${API_PORT_DEBUG}
+    container_name: api
+    env_file:
+      - .env
+    depends_on:
+      - postgres_db
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  shelterdb_volume:

@@ -4,14 +4,13 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class UserFollowsRequestDto {
+
+public record UserFollowsRequestDto (
     // Удалим, будем брать из jwt
     @NotEmpty
-    private final Long followerId;
+    Long followerId,
 
     @NotEmpty
-    private final Long followingId;
+    Long followingId
 
-}
+){}

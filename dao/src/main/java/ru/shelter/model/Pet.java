@@ -5,16 +5,16 @@ import lombok.*;
 
 @Entity
 @Table(name = "pets")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pet_id")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "pet_name", nullable = false, length = 30)

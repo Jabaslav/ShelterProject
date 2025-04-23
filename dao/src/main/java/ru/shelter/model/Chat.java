@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "chat_name", length = 50)
@@ -29,7 +29,7 @@ public class Chat {
 
     @CreationTimestamp
     @Column(name = "followship_creation_time", updatable = false)
-    private LocalDateTime chatCreationTime;
+    private LocalDateTime creationTime;
 
     @OneToMany(mappedBy = "chat")
     private List<Message> messages = new ArrayList<>();

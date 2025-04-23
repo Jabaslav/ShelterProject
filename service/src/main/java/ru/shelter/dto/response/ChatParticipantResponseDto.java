@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.shelter.model.ChatParticipant;
 
-@Data
-@AllArgsConstructor
-public class ChatParticipantResponseDto {
+
+public record ChatParticipantResponseDto (
     //
 
-    private final Long chatId;
-    private final Long userId;
-    private final ChatParticipant.ParticipantRole role;
-    private final Boolean isActive;
+    Long chatId,
+    Long userId,
+    ChatParticipant.ParticipantRole role,
+    Boolean isActive
 
-}
+){}

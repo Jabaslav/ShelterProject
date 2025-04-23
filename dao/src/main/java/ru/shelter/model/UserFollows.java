@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "user_follows")
 @IdClass(UserFollowsId.class)  // Для составного первичного ключа
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserFollows {
 
     // Класс для составного ID
     @EmbeddedId
+    @EqualsAndHashCode.Include
     UserFollowsId userFollowsId;
 
     @Id

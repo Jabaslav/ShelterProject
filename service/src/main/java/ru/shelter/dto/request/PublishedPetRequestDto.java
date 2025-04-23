@@ -5,13 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 // Дто для запроса на указание питомца в посте
-@Data
-@AllArgsConstructor
-public class PublishedPetRequestDto {
+
+public record PublishedPetRequestDto (
 
     @NotEmpty
-    private final Long petId;
+    Long petId,
 
     @NotEmpty
-    private final Long postId;
-}
+    Long postId
+){}

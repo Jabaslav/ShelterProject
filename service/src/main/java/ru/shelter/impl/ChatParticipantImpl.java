@@ -35,8 +35,8 @@ public class ChatParticipantImpl implements ChatParticipantService {
     }
 
     @Override
-    public boolean update(ChatParticipantRequestDto Object, ChatParticipantId chatParticipantId) {
-        return false;
+    public ChatParticipantResponseDto update(ChatParticipantRequestDto Object, ChatParticipantId chatParticipantId) {
+        return null;
     }
 
     @Override

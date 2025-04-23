@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
 @Data // Генерирует геттеры, сеттеры, toString, equals, hashCode
 @NoArgsConstructor // Обязательный пустой конструктор для JPA
 @AllArgsConstructor // Опционально: конструктор со всеми полями
-@Builder // Паттерн Builder для удобного создания объектов
 public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Long postId;
+    @EqualsAndHashCode.Include
+    private Long id;
 
     // Связь Many-to-One с User (много постов → один автор)
     @ManyToOne(fetch = FetchType.LAZY)
@@ -28,6 +28,7 @@ public class Post {
             foreignKey = @ForeignKey(name = "post_author_exists") // Указываем имя constraint
     )
     @ToString.Exclude // Исключаем из toString, чтобы избежать рекурсии
+
     private User author; // Ссылка на сущность User, а не просто post_author_id
 
     @Column(name = "post_pic_addr", length = 50)
@@ -40,16 +41,3 @@ public class Post {
     private LocalDateTime creationTime;
 }
 
-        /*
-@Data
-public class Post {
-
-    Long id;
-
-    long authorId;
-
-    String description;
-
-    Instant postDate;
-}
-         */

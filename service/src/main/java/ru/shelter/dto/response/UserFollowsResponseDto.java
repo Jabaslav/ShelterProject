@@ -6,10 +6,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-public class UserFollowsResponseDto {
-    private final Long followerId;
-    private final Long followingId;
-    private final LocalDateTime creationTime;
-}
+
+public record UserFollowsResponseDto (
+    Long followerId,
+    Long followingId,
+    LocalDateTime creationTime
+){}

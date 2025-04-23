@@ -7,6 +7,7 @@ import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.UserFollowsId;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserFollowsImpl implements UserFollowsService {
@@ -22,8 +23,8 @@ public class UserFollowsImpl implements UserFollowsService {
     }
 
     @Override
-    public boolean update(UserFollowsRequestDto Object, UserFollowsId userFollowsId) {
-        return false;
+    public UserFollowsResponseDto update(UserFollowsRequestDto Object, UserFollowsId userFollowsId) {
+        return null;
     }
 
     @Override
@@ -32,17 +33,17 @@ public class UserFollowsImpl implements UserFollowsService {
     }
 
     @Override
-    public ArrayList<UserFollowsResponseDto> getAll() {
+    public List<UserFollowsResponseDto> getAll() {
         return null;
     }
 
     @Override
-    public ArrayList<UserResponseDto> findFollowByUserId(Long userId) {
+    public List<UserResponseDto> findFollowByUserId(Long userId) {
         return null;
     }
 
     @Override
-    public ArrayList<UserResponseDto> findFollowerByUserId(Long userId) {
+    public List<UserResponseDto> findFollowerByUserId(Long userId) {
         return null;
     }
 }

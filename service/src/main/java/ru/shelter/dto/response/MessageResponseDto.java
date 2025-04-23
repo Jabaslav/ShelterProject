@@ -6,14 +6,13 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@RequiredArgsConstructor
-public class MessageResponseDto {
-    private final Long messageId;
-    private final Long chatId;
-    private final Long authorId;
-    private final String imageAddress;
-    private final String text;
-    private final LocalDateTime creationTime;
 
-}
+public record MessageResponseDto (
+    Long messageId,
+    Long chatId,
+    Long authorId,
+    String imageAddress,
+    String text,
+    LocalDateTime creationTime
+
+){}

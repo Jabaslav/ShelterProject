@@ -7,21 +7,20 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 // дто для создания питомца
-@Data
-@AllArgsConstructor
-public class PetCreateRequestDto {
-    @NotEmpty
-    @Size(max=30)
-    private final String petName;
 
-    //@NotEmpty
-    private final MultipartFile image;
+public record PetCreateRequestDto (
+        @NotEmpty
+        @Size(max=30)
+        String name,
 
-    @NotEmpty
-    @Size(max=30)
-    private final String type;
+        //@NotEmpty
+        MultipartFile image,
 
-    @NotEmpty
-    @Size(max=140)
-    private final String description;
-}
+        @NotEmpty
+        @Size(max=30)
+        String type,
+
+        @NotEmpty
+        @Size(max=140)
+        String description
+){ }

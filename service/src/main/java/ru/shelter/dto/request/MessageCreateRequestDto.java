@@ -7,19 +7,17 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.validation.AtLeastOneNotNull;
 
 // Дто для отправки сообщения в чат
-@Data
-@RequiredArgsConstructor
+
 @AtLeastOneNotNull(fieldNames = {"image, text"})
-public class MessageCreateRequestDto {
+public record MessageCreateRequestDto(
+        @NotEmpty
+        Long chatId,
 
-    @NotEmpty
-    private final Long chatId;
+        //Айди потом уберем, будем получать из токена
+        @NotEmpty
+        Long authorId,
 
-    //Айди потом уберем, будем получать из токена
-    @NotEmpty
-    private final Long authorId;
+        MultipartFile image,
 
-    private final MultipartFile image;
-
-    private final String text;
-}
+        String text
+){ }

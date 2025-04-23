@@ -9,12 +9,12 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @IdClass(ChatParticipantId.class) // Для составного ключа
 public class ChatParticipant {
 
     // Составной первичный ключ
     @EmbeddedId
+    @EqualsAndHashCode.Include
     ChatParticipantId chatParticipantId;
 
     @Id

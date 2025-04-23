@@ -6,7 +6,8 @@ import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.FriendListId;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FriendListService extends ServiceInterface<FriendListRequestDto, FriendListResponseDto, FriendListId> {
-    ArrayList<UserResponseDto> findFriendByUserId(Long userId);
+    List<UserResponseDto> findFriendByUserId(Long userId);
 }

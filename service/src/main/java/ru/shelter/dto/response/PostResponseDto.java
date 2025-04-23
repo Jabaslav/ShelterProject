@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PostResponseDto {
 
-    private final Long postId;
-    private final Long authorId;
-    private final String pictureAddress;
-    private final String description;
-    private final LocalDateTime creationTime;
+    private  Long postId;
+    private  Long authorId;
+    private  String pictureAddress;
+    private  String description;
+    private  LocalDateTime creationTime;
 }

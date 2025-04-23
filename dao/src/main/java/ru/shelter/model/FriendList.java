@@ -11,14 +11,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "friend_list")
 @IdClass(FriendListId.class)  // Для составного первичного ключа
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class FriendList {
 
     // Класс для составного ID
     @EmbeddedId
+    @EqualsAndHashCode.Include
     FriendListId friendListId;
 
     @Id

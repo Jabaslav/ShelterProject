@@ -10,16 +10,14 @@ import ru.shelter.validation.AtLeastOneNotNull;
 import java.time.LocalDateTime;
 
 // дто для создания поста
-@Data
-@AllArgsConstructor
+
 @AtLeastOneNotNull(fieldNames = {"description, image"})
-public class PostCreateRequestDto {
+public record PostCreateRequestDto (
+        @NotEmpty
+        Long authorId,
 
-    @NotEmpty
-    private final Long authorId;
+        @Size(max=140)
+        String description,
 
-    @Size(max=140)
-    private final String description;
-
-    private final MultipartFile image;
-}
+        MultipartFile image
+){}

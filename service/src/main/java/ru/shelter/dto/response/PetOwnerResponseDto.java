@@ -8,11 +8,10 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@RequiredArgsConstructor
-public class PetOwnerResponseDto {
-    private final Long ownerId;
-    private final Long petId;
-    private final LocalDateTime ownershipCreationTime;
 
-}
+public record PetOwnerResponseDto (
+    Long ownerId,
+    Long petId,
+    LocalDateTime ownershipCreationTime
+
+){}

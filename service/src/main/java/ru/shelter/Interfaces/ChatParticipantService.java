@@ -8,8 +8,9 @@ import ru.shelter.interfaces.ChatDao;
 import ru.shelter.model.ChatParticipantId;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ChatParticipantService extends ServiceInterface<ChatParticipantRequestDto, ChatParticipantResponseDto, ChatParticipantId> {
-    ArrayList<UserResponseDto> findUserByChatId(Long chatId);
-    ArrayList<ChatDao> findChatByUserId(Long userId);
+    List<UserResponseDto> findUserByChatId(Long chatId);
+    List<ChatDao> findChatByUserId(Long userId);
 }

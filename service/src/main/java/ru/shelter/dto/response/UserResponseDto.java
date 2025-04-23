@@ -9,23 +9,17 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserResponseDto {
-    @NotEmpty
-    private String userName;
 
-    @NotEmpty
-    private LocalDate userBirthdayDate;
+public record UserResponseDto (
 
-    @NotEmpty
-    @Email
-    private String userEmail;
+    String userName,
 
-    @NotEmpty
+    LocalDate userBirthdayDate,
+
+    String userEmail,
+
+
     //@Pattern(regexp()) Надо задать формат номера телефона
-    private String userPhoneNumber;
+    String userPhoneNumber
 
-
-}
+){}

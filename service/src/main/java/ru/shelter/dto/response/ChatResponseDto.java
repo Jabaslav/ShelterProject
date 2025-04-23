@@ -5,11 +5,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
-public class ChatResponseDto {
-    private final Long id;
-    private final String name;
-    private final String imageAddress;
-    private final LocalDateTime creationTime;
-}
+
+public record ChatResponseDto (
+    Long id,
+    String name,
+    String imageAddress,
+    LocalDateTime creationTime
+){}

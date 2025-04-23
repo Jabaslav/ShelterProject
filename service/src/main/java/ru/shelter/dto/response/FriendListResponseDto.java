@@ -7,13 +7,12 @@ import ru.shelter.model.FriendList;
 
 import java.time.LocalDateTime;
 
-@Data
-@RequiredArgsConstructor
-public class FriendListResponseDto {
+
+public record FriendListResponseDto (
 
 
-    private final Long userId;
-    private final Long friendId;
-    private final FriendList.FriendshipStatus status;
-    private LocalDateTime lastStatusChangeTime;
-}
+    Long userId,
+    Long friendId,
+    FriendList.FriendshipStatus status,
+    LocalDateTime lastStatusChangeTime
+){}

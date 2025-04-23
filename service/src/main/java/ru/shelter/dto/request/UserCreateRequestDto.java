@@ -11,26 +11,25 @@ import ru.shelter.validation.AtLeastOneNotNull;
 
 import java.time.LocalDate;
 
-@Data
-@RequiredArgsConstructor
+
 @AtLeastOneNotNull(fieldNames = {"userEmail, userPhoneNumber"})
-public class UserCreateRequestDto {
+public record UserCreateRequestDto (
     @NotEmpty
-    private final String name;
+    String name,
 
     @NotEmpty
-    private final LocalDate birthdayDate;
+    LocalDate birthdayDate,
 
     @NotEmpty
     @Email
-    private final String email;
+    String email,
 
     @NotEmpty
     //@Pattern(regexp()) Надо задать формат номера телефона
-    private final String phoneNumber;
+    String phoneNumber,
 
     @NotEmpty
     @Size(min = 8)
-    private final String password;
-};
+    String password
+){};
 

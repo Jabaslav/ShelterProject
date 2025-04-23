@@ -2,6 +2,7 @@ package ru.shelter.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,16 +10,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "pet_owners")
 @Data
-@Setter
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @IdClass(PetOwnerId.class)  // Для составного ключа
 public class PetOwner {
 
     // Составной первичный ключ
     @EmbeddedId
+    @EqualsAndHashCode.Include
     PetOwnerId petOwnerId;
 
     @Id
@@ -41,8 +40,8 @@ public class PetOwner {
     @ToString.Exclude
     private Pet pet;
 
-     //Дополнительные поля (если нужны)
-     @Column(name = "ownership_since")
-     private LocalDateTime ownershipCreationTime;
+    @CreationTimestamp
+    @Column(name = "ownership_since")
+    private LocalDateTime ownershipCreationTime;
 }
 

@@ -1,7 +1,8 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel="spring")
-public class PetOwnerMapper {
+@Mapper(componentModel="spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface PetOwnerMapper {
 }

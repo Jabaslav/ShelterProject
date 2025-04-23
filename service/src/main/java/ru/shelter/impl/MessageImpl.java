@@ -24,8 +24,8 @@ public class MessageImpl implements MessageService {
     }
 
     @Override
-    public boolean update(MessageCreateRequestDto Object, Long aLong) {
-        return false;
+    public MessageResponseDto update(MessageCreateRequestDto Object, Long aLong) {
+        return null;
     }
 
     @Override

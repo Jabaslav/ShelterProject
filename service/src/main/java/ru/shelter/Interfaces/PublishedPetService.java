@@ -8,8 +8,9 @@ import ru.shelter.model.PublishedPet;
 import ru.shelter.model.PublishedPetId;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface PublishedPetService extends ServiceInterface<PublishedPetRequestDto, PublishedPetResponseDto, PublishedPetId> {
-    ArrayList<PetDao> findPetByPost (Long postId);
-    ArrayList<PostDao> findPostByPet(Long petId);
+    List<PetDao> findPetByPost (Long postId);
+    List<PostDao> findPostByPet(Long petId);
 }

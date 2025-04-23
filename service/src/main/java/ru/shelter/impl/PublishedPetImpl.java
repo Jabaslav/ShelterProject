@@ -9,6 +9,7 @@ import ru.shelter.model.PublishedPet;
 import ru.shelter.model.PublishedPetId;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class PublishedPetImpl implements PublishedPetService {
@@ -34,8 +35,8 @@ public class PublishedPetImpl implements PublishedPetService {
     }
 
     @Override
-    public boolean update(PublishedPetRequestDto Object, PublishedPetId publishedPetId) {
-        return false;
+    public PublishedPetResponseDto update(PublishedPetRequestDto Object, PublishedPetId publishedPetId) {
+        return null;
     }
 
     @Override
@@ -44,7 +45,7 @@ public class PublishedPetImpl implements PublishedPetService {
     }
 
     @Override
-    public ArrayList<PublishedPetResponseDto> getAll() {
+    public List<PublishedPetResponseDto> getAll() {
         return null;
     }
 }

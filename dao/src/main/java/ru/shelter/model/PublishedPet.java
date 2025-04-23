@@ -2,6 +2,8 @@ package ru.shelter.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -16,6 +18,7 @@ public class PublishedPet {
 
     // Составной первичный ключ
     @EmbeddedId
+    @EqualsAndHashCode.Include
     PublishedPetId publishedPetId;
 
     @Id
@@ -31,7 +34,7 @@ public class PublishedPet {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "publication_id",  // Обратите внимание: в DDL используется publication_id, а не post_id
+            name = "publication_id",
             foreignKey = @ForeignKey(name = "fk_published_post"),
             nullable = false
     )
@@ -39,7 +42,8 @@ public class PublishedPet {
     private Post post;
 
     // Дополнительные поля (если нужны)
-     @Column(name = "publication_date")
-     private LocalDateTime petAddedDate;
+    @CreationTimestamp
+    @Column(name = "publication_date")
+    private LocalDateTime petAddedDate;
 }
 

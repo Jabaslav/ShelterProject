@@ -34,8 +34,8 @@ public class PetOwnerImpl implements PetOwnerService {
     }
 
     @Override
-    public boolean update(PetOwnerRequestDto Object, PetOwnerId petOwnerId) {
-        return false;
+    public PetOwnerResponseDto update(PetOwnerRequestDto Object, PetOwnerId petOwnerId) {
+        return null;
     }
 
     @Override

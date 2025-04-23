@@ -9,12 +9,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Message {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")  // Добавлено, хотя в DDL не было (рекомендуется для JPA)
-    private Long messageId;
+    @EqualsAndHashCode.Include
+    private Long id;
 
     // Связь с чатом (Many-to-One)
     @ManyToOne(fetch = FetchType.LAZY)

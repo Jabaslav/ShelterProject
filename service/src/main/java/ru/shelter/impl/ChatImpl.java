@@ -22,8 +22,8 @@ public class ChatImpl implements ChatService {
     }
 
     @Override
-    public boolean update(ChatCreateRequestDto Object, Long aLong) {
-        return false;
+    public ChatResponseDto update(ChatCreateRequestDto Object, Long aLong) {
+        return null;
     }
 
     @Override

@@ -6,8 +6,9 @@ import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.UserFollowsId;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface UserFollowsService extends ServiceInterface<UserFollowsRequestDto, UserFollowsResponseDto, UserFollowsId>{
-    ArrayList<UserResponseDto> findFollowByUserId(Long userId);
-    ArrayList<UserResponseDto> findFollowerByUserId(Long userId);
+    List<UserResponseDto> findFollowByUserId(Long userId);
+    List<UserResponseDto> findFollowerByUserId(Long userId);
 }

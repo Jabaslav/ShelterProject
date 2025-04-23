@@ -30,8 +30,8 @@ public class FriendListImpl implements FriendListService {
     }
 
     @Override
-    public boolean update(FriendListRequestDto Object, FriendListId friendListId) {
-        return false;
+    public FriendListResponseDto update(FriendListRequestDto Object, FriendListId friendListId) {
+        return null;
     }
 
     @Override

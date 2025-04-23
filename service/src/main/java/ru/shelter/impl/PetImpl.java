@@ -22,8 +22,8 @@ public class PetImpl implements PetService {
     }
 
     @Override
-    public boolean update(PetCreateRequestDto Object, Long aLong) {
-        return false;
+    public PetResponseDto update(PetCreateRequestDto Object, Long aLong) {
+        return null;
     }
 
     @Override

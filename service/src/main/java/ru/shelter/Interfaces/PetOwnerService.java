@@ -9,9 +9,10 @@ import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.PetOwnerId;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface PetOwnerService extends ServiceInterface<PetOwnerRequestDto, PetOwnerResponseDto, PetOwnerId> {
 
-    ArrayList<PetResponseDto> findPetByOwnerId(Long ownerId);
-    ArrayList<UserResponseDto> findOwnerByPetId(Long petId);
+    List<PetResponseDto> findPetByOwnerId(Long ownerId);
+    List<UserResponseDto> findOwnerByPetId(Long petId);
 }
