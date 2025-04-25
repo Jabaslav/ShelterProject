@@ -4,7 +4,6 @@ import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 @Embeddable
@@ -13,5 +12,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class FriendListId implements Serializable {
     private Long userId;
-    private Long FriendId;
+    private Long friendId; // Исправлено на friendId (строчная буква)
 }
