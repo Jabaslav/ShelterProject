@@ -1,21 +1,10 @@
 package ru.shelter.dto.request;
 
-import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.constraints.NotNull;
 import ru.shelter.model.FriendList;
 
-// Дто для отправления/принятия заявки в друзья, удаления друга
-
-
-public record FriendListRequestDto (
-        //Тоже уберем, будем брать из jwt
-        @NotEmpty
-        Long userId,
-
-        @NotEmpty
-        Long friendId,
-
-        @NotEmpty
-        FriendList.FriendshipStatus status
-){ }
+public record FriendListRequestDto(
+        @NotNull Long userId,
+        @NotNull Long friendId,
+        @NotNull FriendList.FriendshipStatus status
+) {}
