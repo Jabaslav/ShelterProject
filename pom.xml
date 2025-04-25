@@ -16,11 +16,13 @@
 	<packaging>pom</packaging>
 	<name>ShelterProject</name>
 	<description>Web-service project for university</description>
+
 	<modules>
 		<module>api</module>
 		<module>service</module>
 		<module>dao</module>
 	</modules>
+
 	<url/>
 	<licenses>
 		<license/>
@@ -28,15 +30,18 @@
 	<developers>
 		<developer/>
 	</developers>
+
 	<scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
 		<url/>
 	</scm>
+
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

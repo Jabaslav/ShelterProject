@@ -16,8 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "users")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor          // Обязательный пустой конструктор для JPA
 @AllArgsConstructor         // Опционально: конструктор со всеми полями (удобно для тестов)
 public class User {
