@@ -2,12 +2,13 @@ package ru.shelter.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.Interfaces.UserService;
 import ru.shelter.dto.request.UserCreateRequestDto;
 import ru.shelter.dto.response.UserResponseDto;
-import lombok.extern.slf4j.Slf4j;
 import ru.shelter.interfaces.UserDao;
 import ru.shelter.mapper.UserMapper;
 import ru.shelter.model.User;
@@ -24,6 +25,7 @@ public class UserImpl implements UserService {
     private final UserDao userDao;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ImageStorageImpl imageStorage;
 
 
     @Override
@@ -31,8 +33,8 @@ public class UserImpl implements UserService {
         try {
             User user = userMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
             user.setPassword(passwordEncoder.encode(requestDto.password()));// Хэширование пароля
-            User savedUser = userDao.save(user); // сохраняем пользователя в бд
-            UserResponseDto response = userMapper.toUserResponse(savedUser);
+            userDao.save(user); // сохраняем пользователя в бд
+            UserResponseDto response = userMapper.toUserResponse(user);
             log.info("Adding user: {}", response);
             return response;
         }
@@ -42,6 +44,29 @@ public class UserImpl implements UserService {
         };
         return null;
     }
+
+    @Override
+    public UserResponseDto addWithImage(UserCreateRequestDto requestDto, MultipartFile image) {
+        try {
+            User user = userMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
+            user.setPassword(passwordEncoder.encode(requestDto.password()));// Хэширование пароля
+            if (image !=null && !image.isEmpty())
+            {
+                user.setProfilePicAddress(imageStorage.saveImage(image));
+            }
+            userDao.save(user); // сохраняем пользователя в бд
+            UserResponseDto response = userMapper.toUserResponse(user);
+            log.info("Adding user: {}", response);
+            return response;
+        }
+        catch (Exception e)
+        {
+            log.error("Add user error:", e);
+        };
+        return null;
+    }
+
+
 
     @Override
     public Optional<UserResponseDto> get(Long id) {
@@ -68,6 +93,32 @@ public class UserImpl implements UserService {
             {
                 User updatedUser = userMapper.fromDto(requestDto);
                 updatedUser.setId(id);
+                userDao.save(updatedUser);
+                log.info("Updating user: {}", requestDto);
+                return (userMapper.toUserResponse(updatedUser));
+            }
+            else
+                throw new EntityNotFoundException();
+        }
+        catch (Exception e)
+        {
+            log.error("Update user error:", e);
+            return null;
+        }
+    }
+
+    @Override
+    public UserResponseDto updateWithImage(UserCreateRequestDto requestDto, Long id, MultipartFile image) {
+        try {
+            Optional<User> user = userDao.findById(id);
+            if (user.isPresent())
+            {
+                User updatedUser = userMapper.fromDto(requestDto);
+                updatedUser.setId(id);
+                if (image !=null && !image.isEmpty())
+                {
+                    updatedUser.setProfilePicAddress(imageStorage.saveImage(image));
+                }
                 userDao.save(updatedUser);
                 log.info("Updating user: {}", requestDto);
                 return (userMapper.toUserResponse(updatedUser));

@@ -1,38 +1,157 @@
 package ru.shelter.impl;
 
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.Interfaces.ChatService;
 import ru.shelter.dto.request.ChatCreateRequestDto;
 import ru.shelter.dto.response.ChatResponseDto;
+import ru.shelter.interfaces.ChatDao;
+import ru.shelter.mapper.ChatMapper;
+import ru.shelter.model.Chat;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+@RequiredArgsConstructor
+@Slf4j
 @Service
 public class ChatImpl implements ChatService {
+    private final ChatMapper chatMapper;
+    private final ChatDao chatDao;
+    private final ImageStorageImpl imageStorage;
 
     @Override
-    public ChatResponseDto add(ChatCreateRequestDto Object) {
+    public ChatResponseDto add(ChatCreateRequestDto requestDto) {
+        try {
+            Chat chat = chatMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
+            chatDao.save(chat); // сохраняем чат в бд
+            ChatResponseDto response = chatMapper.toChatResponse(chat);
+            log.info("Adding chat: {}", response);
+            return response;
+        }
+        catch (Exception e)
+        {
+            log.error("Add chat error:", e);
+        };
         return null;
     }
 
     @Override
-    public Optional<ChatResponseDto> get(Long aLong) {
-        return Optional.empty();
-    }
-
-    @Override
-    public ChatResponseDto update(ChatCreateRequestDto Object, Long aLong) {
+    public ChatResponseDto addWithImage(ChatCreateRequestDto requestDto, MultipartFile image) {
+        try {
+            Chat chat = chatMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
+            if (image !=null && !image.isEmpty())
+            {
+                chat.setImageAddress(imageStorage.saveImage(image));
+            }
+            chatDao.save(chat); // сохраняем чат в бд
+            ChatResponseDto response = chatMapper.toChatResponse(chat);
+            log.info("Adding chat: {}", response);
+            return response;
+        }
+        catch (Exception e)
+        {
+            log.error("Add chat error:", e);
+        };
         return null;
     }
 
     @Override
-    public boolean remove(Long aLong) {
-        return false;
+    public Optional<ChatResponseDto> get(Long id) {
+        try {
+            Optional<ChatResponseDto> response = chatDao.findById(id).map(chatMapper::toChatResponse);
+            if (response.isPresent())
+                log.info("Get chat:", response);
+            else
+                log.info("Chat with id", id, "not found");
+            return response;
+        }
+        catch (Exception e)
+        {
+            log.error ("Get chat error:", e);
+            return Optional.empty();
+        }
     }
 
     @Override
-    public ArrayList<ChatResponseDto> getAll() {
-        return null;
+    public ChatResponseDto update(ChatCreateRequestDto requestDto, Long id) {
+        try {
+            Optional<Chat> chat = chatDao.findById(id);
+            if (chat.isPresent())
+            {
+                Chat updatedChat = chatMapper.fromDto(requestDto);
+                updatedChat.setId(id);
+
+                chatDao.save(updatedChat);
+                log.info("Updating chat: {}", requestDto);
+                return (chatMapper.toChatResponse(updatedChat));
+            }
+            else
+                throw new EntityNotFoundException();
+        }
+        catch (Exception e)
+        {
+            log.error("Update chat error:", e);
+            return null;
+        }
+    }
+
+    @Override
+    public ChatResponseDto updateWithImage(ChatCreateRequestDto requestDto, Long id, MultipartFile image) {
+        try {
+            Optional<Chat> chat = chatDao.findById(id);
+            if (chat.isPresent())
+            {
+                Chat updatedChat = chatMapper.fromDto(requestDto);
+                updatedChat.setId(id);
+                if (image !=null && !image.isEmpty())
+                {
+                    updatedChat.setImageAddress(imageStorage.saveImage(image));
+                }
+                chatDao.save(updatedChat);
+                log.info("Updating chat: {}", requestDto);
+                return (chatMapper.toChatResponse(updatedChat));
+            }
+            else
+                throw new EntityNotFoundException();
+        }
+        catch (Exception e)
+        {
+            log.error("Update chat error:", e);
+            return null;
+        }
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        try {
+            chatDao.deleteById(id);
+            log.info("Deleted chat: {}", id);
+            return true;
+        }
+        catch (Exception e)
+        {
+            log.error("Deleting chat error:", e);
+            return false;
+        }
+    }
+
+    @Override
+    public List<ChatResponseDto> getAll() {
+        try
+        {
+            List<Chat> chats = chatDao.findAll();
+            log.info("GetAll chats successfully:{}", chats);
+            return (chatMapper.toChatResponseList(chats));
+        }
+        catch (Exception e)
+        {
+            log.error("GetAll chat error:", e);
+            return Collections.emptyList();
+        }
     }
 }

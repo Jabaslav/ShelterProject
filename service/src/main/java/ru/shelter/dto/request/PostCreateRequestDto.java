@@ -2,12 +2,7 @@ package ru.shelter.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.validation.AtLeastOneNotNull;
-
-import java.time.LocalDateTime;
 
 // дто для создания поста
 
@@ -17,7 +12,6 @@ public record PostCreateRequestDto (
         Long authorId,
 
         @Size(max=140)
-        String description,
+        String description
 
-        MultipartFile image
 ){}

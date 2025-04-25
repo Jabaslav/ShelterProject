@@ -1,7 +1,6 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.shelter.dto.request.MessageCreateRequestDto;
 import ru.shelter.dto.response.MessageResponseDto;
@@ -15,7 +14,7 @@ public interface MessageMapper {
     MessageResponseDto toMessageResponse (Message message);
 
 
-    List<MessageResponseDto> toMessageResponse (List<Message> message);
+    List<MessageResponseDto> toMessageResponseList (List<Message> message);
 
     Message fromDto (MessageCreateRequestDto requestDto);
 }

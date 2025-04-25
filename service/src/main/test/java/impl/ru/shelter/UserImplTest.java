@@ -1,4 +1,4 @@
-package java.ru.shelter.impl;
+package ru.shelter.impl;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +8,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.shelter.dto.request.UserCreateRequestDto;
 import ru.shelter.dto.response.UserResponseDto;
-import ru.shelter.impl.UserImpl;
 import ru.shelter.interfaces.UserDao;
 import ru.shelter.mapper.UserMapper;
 import ru.shelter.model.User;
@@ -64,10 +63,13 @@ class UserImplTest {
         savedUser.setPhoneNumber(user.getPhoneNumber());
 
         UserResponseDto expectedResponse = new UserResponseDto(
+                savedUser.getId(),
                 savedUser.getName(),
                 savedUser.getBirthdayDate(),
                 savedUser.getEmail(),
-                savedUser.getPhoneNumber()
+                savedUser.getPhoneNumber(),
+                savedUser.getProfilePicAddress(),
+                savedUser.getRegisterTime()
         );
 
         when(userMapper.fromDto(requestDto)).thenReturn(user);
@@ -80,8 +82,8 @@ class UserImplTest {
 
         // Assert
         assertNotNull(actualResponse);
-        assertEquals(expectedResponse.userName(), actualResponse.userName());
-        assertEquals(expectedResponse.userEmail(), actualResponse.userEmail());
+        assertEquals(expectedResponse.name(), actualResponse.name());
+        assertEquals(expectedResponse.email(), actualResponse.email());
         verify(passwordEncoder).encode(requestDto.password());
         verify(userDao).save(user);
     }
@@ -118,10 +120,13 @@ class UserImplTest {
         user.setPhoneNumber("+1234567890");
 
         UserResponseDto expectedResponse = new UserResponseDto(
+                user.getId(),
                 user.getName(),
                 user.getBirthdayDate(),
                 user.getEmail(),
-                user.getPhoneNumber()
+                user.getPhoneNumber(),
+                user.getProfilePicAddress(),
+                user.getRegisterTime()
         );
 
         when(userDao.findById(userId)).thenReturn(Optional.of(user));
@@ -188,10 +193,13 @@ class UserImplTest {
         updatedUser.setPhoneNumber(requestDto.phoneNumber());
 
         UserResponseDto expectedResponse = new UserResponseDto(
+                updatedUser.getId(),
                 updatedUser.getName(),
                 updatedUser.getBirthdayDate(),
                 updatedUser.getEmail(),
-                updatedUser.getPhoneNumber()
+                updatedUser.getPhoneNumber(),
+                updatedUser.getProfilePicAddress(),
+                updatedUser.getRegisterTime()
         );
 
         when(userDao.findById(userId)).thenReturn(Optional.of(existingUser));
@@ -204,8 +212,8 @@ class UserImplTest {
 
         // Assert
         assertNotNull(actualResponse);
-        assertEquals(expectedResponse.userName(), actualResponse.userName());
-        assertEquals(expectedResponse.userEmail(), actualResponse.userEmail());
+        assertEquals(expectedResponse.name(), actualResponse.name());
+        assertEquals(expectedResponse.email(), actualResponse.email());
         verify(userDao).save(updatedUser);
     }
 
@@ -291,17 +299,23 @@ class UserImplTest {
         List<User> users = List.of(user1, user2);
 
         UserResponseDto responseDto1 = new UserResponseDto(
+                user1.getId(),
                 user1.getName(),
                 user1.getBirthdayDate(),
                 user1.getEmail(),
-                user1.getPhoneNumber()
+                user1.getPhoneNumber(),
+                user1.getProfilePicAddress(),
+                user1.getRegisterTime()
         );
 
         UserResponseDto responseDto2 = new UserResponseDto(
+                user2.getId(),
                 user2.getName(),
                 user2.getBirthdayDate(),
                 user2.getEmail(),
-                user2.getPhoneNumber()
+                user2.getPhoneNumber(),
+                user2.getProfilePicAddress(),
+                user2.getRegisterTime()
         );
 
         List<UserResponseDto> expectedResponse = List.of(responseDto1, responseDto2);

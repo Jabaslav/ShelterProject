@@ -29,7 +29,7 @@ public class ImageStorageImpl {
                 .collect(Collectors.toList());
     }
 
-    private String saveImage(MultipartFile image) {
+    public String saveImage(MultipartFile image) {
         try
         {
             String fileName = UUID.randomUUID() + "_" + image.getOriginalFilename();
@@ -42,6 +42,7 @@ public class ImageStorageImpl {
         }
         catch (IOException e) {
             throw new RuntimeException("Failed to save image", e);
+
         }
     }
 }

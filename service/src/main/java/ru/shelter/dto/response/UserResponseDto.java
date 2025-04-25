@@ -1,25 +1,22 @@
 package ru.shelter.dto.response;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public record UserResponseDto (
 
-    String userName,
+    Long id,
 
-    LocalDate userBirthdayDate,
+    String name,
 
-    String userEmail,
+    LocalDate birthdayDate,
 
+    String email,
 
-    //@Pattern(regexp()) Надо задать формат номера телефона
-    String userPhoneNumber
+    String phoneNumber,
+    String profilePicAddress,
+
+    LocalDateTime registerTime
 
 ){}

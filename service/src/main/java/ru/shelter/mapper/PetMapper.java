@@ -1,7 +1,6 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import ru.shelter.dto.request.PetCreateRequestDto;
 import ru.shelter.dto.response.PetResponseDto;
@@ -13,7 +12,7 @@ import java.util.List;
 public interface PetMapper {
     PetResponseDto toPetResponse (Pet pet);
 
-    List<PetResponseDto> toPetResponse (List<Pet> pet);
+    List<PetResponseDto> toPetResponseList(List<Pet> pet);
 
 //    @Mapping(target="id", ignore=true)
 //    @Mapping(target="imageAddress", ignore = true)
