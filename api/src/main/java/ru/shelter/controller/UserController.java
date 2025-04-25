@@ -24,7 +24,7 @@ public class UserController {
     @PutMapping("/{id}/update")
     public ResponseEntity<?> updateUserData(@PathVariable Long user_id)
     {
-return null;
+        return null;
     }
 
 }
