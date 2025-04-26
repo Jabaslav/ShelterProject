@@ -1,8 +1,10 @@
 package ru.shelter.impl;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.Interfaces.PetService;
@@ -16,139 +18,119 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PetImpl implements PetService {
-
     private final PetDao petDao;
     private final PetMapper petMapper;
     private final ImageStorageImpl imageStorage;
 
     @Override
+    @Transactional
     public PetResponseDto add(PetCreateRequestDto requestDto) {
         try {
-            Pet pet = petMapper.fromDto(requestDto); // создание entity через маппер
-            Pet savedPet = petDao.save(pet); // сохраняем питомца в бд
-            PetResponseDto response = petMapper.toPetResponse(savedPet); // готовим ответ на запрос
-            log.info("Adding pet: {}", response);
-            return response;
+            Pet pet = petMapper.fromDto(requestDto);
+            Pet savedPet = petDao.save(pet);
+            log.info("Added pet: ID {}", savedPet.getId());
+            return petMapper.toPetResponse(savedPet);
+        } catch (Exception e) {
+            log.error("Error adding pet: {}", e.getMessage());
+            throw new RuntimeException("Failed to create pet");
         }
-        catch (Exception e)
-        {
-            log.error("Add Pet error:", e);
-        };
-        return null;
     }
 
     @Override
+    @Transactional
     public PetResponseDto addWithImage(PetCreateRequestDto requestDto, MultipartFile image) {
+        validateImage(image);
         try {
-            Pet pet = petMapper.fromDto(requestDto); // создание entity через маппер
-            if (image!=null && !image.isEmpty())
-                pet.setImageAddress(imageStorage.saveImage(image));
-            petDao.save(pet); // сохраняем питомца в бд
-            PetResponseDto response = petMapper.toPetResponse(pet); // готовим ответ на запрос
-            log.info("Adding pet: {}", response);
-            return response;
+            Pet pet = petMapper.fromDto(requestDto);
+            pet.setImageAddress(imageStorage.saveImage(image));
+            Pet savedPet = petDao.save(pet);
+            log.info("Added pet with image: ID {}", savedPet.getId());
+            return petMapper.toPetResponse(savedPet);
+        } catch (Exception e) {
+            log.error("Error adding pet with image: {}", e.getMessage());
+            throw new RuntimeException("Failed to create pet with image");
         }
-        catch (Exception e)
-        {
-            log.error("Add Pet error:", e);
-        };
-        return null;
     }
 
-
+    private void validateImage(MultipartFile image) {
+        if (image != null && !image.isEmpty()) {
+            if (!image.getContentType().startsWith("image/")) {
+                throw new IllegalArgumentException("Invalid image type");
+            }
+            if (image.getSize() > 5 * 1024 * 1024) { // 5MB
+                throw new IllegalArgumentException("Image size exceeds 5MB");
+            }
+        }
+    }
 
     @Override
     public Optional<PetResponseDto> get(Long id) {
         try {
-            Optional<PetResponseDto> response = petDao.findById(id).map(petMapper::toPetResponse);
-            if (response.isPresent())
-                log.info("Get pet:", response);
-            else
-                log.info("Pet with id", id, "not found");
-            return response;
-        }
-        catch (Exception e)
-        {
-            log.error ("Get pet error:", e);
+            Optional<Pet> pet = petDao.findById(id);
+            pet.ifPresentOrElse(
+                    p -> log.info("Retrieved pet: ID {}", p.getId()),
+                    () -> log.warn("Pet with ID {} not found", id)
+            );
+            return pet.map(petMapper::toPetResponse);
+        } catch (Exception e) {
+            log.error("Error retrieving pet: ID {}", id);
             return Optional.empty();
         }
     }
 
     @Override
+    @Transactional
     public PetResponseDto update(PetCreateRequestDto requestDto, Long id) {
-        try {
-            Optional<Pet> Pet = petDao.findById(id);
-            if (Pet.isPresent())
-            {
-                Pet pet = petMapper.fromDto(requestDto);
-                pet.setId(id);
-                petDao.save(pet);
-                log.info("Updating pet: {}", requestDto);
-                return (petMapper.toPetResponse(pet));
-            }
-            else
-                throw new EntityNotFoundException();
-        }
-        catch (Exception e)
-        {
-            log.error("Update pet error:", e);
-            return null;
-        }
+        return petDao.findById(id)
+                .map(existingPet -> {
+                    petMapper.updateFromDto(requestDto, existingPet);
+                    petDao.save(existingPet);
+                    log.info("Updated pet: ID {}", id);
+                    return petMapper.toPetResponse(existingPet);
+                })
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
+    @Transactional
     public PetResponseDto updateWithImage(PetCreateRequestDto requestDto, Long id, MultipartFile image) {
-        try {
-            Optional<Pet> Pet = petDao.findById(id);
-            if (Pet.isPresent())
-            {
-                Pet pet = petMapper.fromDto(requestDto);
-                pet.setId(id);
-                if (image!=null && !image.isEmpty())
-                    pet.setImageAddress(imageStorage.saveImage(image));
-                petDao.save(pet);
-                log.info("Updating pet: {}", requestDto);
-                return (petMapper.toPetResponse(pet));
-            }
-            else
-                throw new EntityNotFoundException();
-        }
-        catch (Exception e)
-        {
-            log.error("Update pet error:", e);
-            return null;
-        }
+        validateImage(image);
+        return petDao.findById(id)
+                .map(existingPet -> {
+                    petMapper.updateFromDto(requestDto, existingPet);
+                    existingPet.setImageAddress(imageStorage.saveImage(image));
+                    petDao.save(existingPet);
+                    log.info("Updated pet with image: ID {}", id);
+                    return petMapper.toPetResponse(existingPet);
+                })
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
+    @Transactional
     public boolean remove(Long id) {
         try {
             petDao.deleteById(id);
-            log.info("Deleted pet: {}", id);
+            log.info("Deleted pet: ID {}", id);
             return true;
-        }
-        catch (Exception e)
-        {
-            log.error("Deleting pet error:", e);
+        } catch (EmptyResultDataAccessException e) {
+            log.warn("Pet with ID {} not found", id);
             return false;
         }
     }
 
     @Override
     public List<PetResponseDto> getAll() {
-        try
-        {
+        try {
             List<Pet> pets = petDao.findAll();
-            log.info("GetAll pets successfully:{}", pets);
-            return (petMapper.toPetResponseList(pets));
-        }
-        catch (Exception e)
-        {
-            log.error("GetAll pet error:", e);
+            log.info("Retrieved {} pets", pets.size());
+            return petMapper.toPetResponseList(pets);
+        } catch (Exception e) {
+            log.error("Error retrieving pets: {}", e.getMessage());
             return Collections.emptyList();
         }
     }

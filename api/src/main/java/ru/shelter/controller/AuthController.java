@@ -15,7 +15,6 @@ import ru.shelter.dto.request.UserCreateRequestDto;
 @RequiredArgsConstructor
 public class AuthController {
 
-
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UserCreateRequestDto userDto)
     {

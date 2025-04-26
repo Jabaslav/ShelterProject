@@ -3,8 +3,6 @@ package ru.shelter.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,36 +10,21 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(PetOwnerId.class)  // Для составного ключа
 public class PetOwner {
-
-    // Составной первичный ключ
     @EmbeddedId
-    @EqualsAndHashCode.Include
-    PetOwnerId petOwnerId;
+    private PetOwnerId id;
 
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "user_id",
-            foreignKey = @ForeignKey(name = "fk_pet_owner_user"),
-            nullable = false
-    )
-    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(
-            name = "pet_id",
-            foreignKey = @ForeignKey(name = "fk_pet_owner_pet"),
-            nullable = false
-    )
-    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("petId")
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
     @CreationTimestamp
     @Column(name = "ownership_since")
     private LocalDateTime ownershipCreationTime;
 }
-
