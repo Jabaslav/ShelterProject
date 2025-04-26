@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 public record FriendListResponseDto (
 
-
     Long userId,
     Long friendId,
     FriendList.FriendshipStatus status,

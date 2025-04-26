@@ -1,43 +1,36 @@
 package ru.shelter.model;
 
-import lombok.Data;
-
-import java.time.Instant;
-
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "posts")
-@Data // Генерирует геттеры, сеттеры, toString, equals, hashCode
-@NoArgsConstructor // Обязательный пустой конструктор для JPA
-@AllArgsConstructor // Опционально: конструктор со всеми полями
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
-    @EqualsAndHashCode.Include
     private Long id;
 
-    // Связь Many-to-One с User (много постов → один автор)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "post_author_id",
-            foreignKey = @ForeignKey(name = "post_author_exists") // Указываем имя constraint
-    )
-    @ToString.Exclude // Исключаем из toString, чтобы избежать рекурсии
+    @JoinColumn(name = "post_author_id")
+    private User author;
 
-    private User author; // Ссылка на сущность User, а не просто post_author_id
-
-    @Column(name = "post_pic_addr", length = 50)
+    @Column(name = "post_pic_addr")
     private String imageAddress;
 
-    @Column(name = "post_description", length = 140)
+    @Column(name = "post_description")
+    @Size(max = 140)
     private String description;
 
-    @Column(name = "post_creation_time", columnDefinition = "TIMESTAMP(0)")
+    @CreationTimestamp
+    @Column(name = "post_creation_time")
     private LocalDateTime creationTime;
 }
-

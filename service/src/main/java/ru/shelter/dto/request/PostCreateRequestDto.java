@@ -1,17 +1,13 @@
 package ru.shelter.dto.request;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import ru.shelter.validation.AtLeastOneNotNull;
 
-// дто для создания поста
-
-@AtLeastOneNotNull(fieldNames = {"description, image"})
+@AtLeastOneNotNull(fieldNames = {"description"}) // Теперь проверяет только описание
 public record PostCreateRequestDto (
-        @NotEmpty
+        @NotNull(message = "Author ID cannot be null")
         Long authorId,
-
-        @Size(max=140)
+        @Size(max = 140)
         String description
-
-){}
+) {}
