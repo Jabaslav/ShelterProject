@@ -11,14 +11,14 @@ import ru.shelter.model.FriendList;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FriendListMapper {
 
-    @Mapping(source = "userId", target = "userId")
-    @Mapping(source = "friendId", target = "friendId")
-    @Mapping(source = "status", target = "status")
+//    @Mapping(source = "userId", target = "userId")
+//    @Mapping(source = "friendId", target = "friendId")
+//    @Mapping(source = "status", target = "status")
     FriendList fromDto(FriendListRequestDto requestDto);
 
-    @Mapping(source = "userId", target = "userId")
-    @Mapping(source = "friendId", target = "friendId")
-    @Mapping(source = "status", target = "status")
+//    @Mapping(source = "userId", target = "userId")
+//    @Mapping(source = "friendId", target = "friendId")
+//    @Mapping(source = "status", target = "status")
     FriendListResponseDto toDto(FriendList friendList);
 
     void updateFromDto(FriendListRequestDto requestDto, @MappingTarget FriendList friendList);

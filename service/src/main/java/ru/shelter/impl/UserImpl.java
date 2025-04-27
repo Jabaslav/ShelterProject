@@ -3,10 +3,11 @@ package ru.shelter.impl;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.Interfaces.UserService;
+import ru.shelter.serviceInterfaces.UserService;
 import ru.shelter.dto.request.UserCreateRequestDto;
 import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.interfaces.UserDao;

@@ -33,7 +33,7 @@ public class Message {
             foreignKey = @ForeignKey(name = "message_author_exists")
     )
     @ToString.Exclude
-    private User author;
+    private User user;
 
     @Column(name = "message_pic_addr", length = 50)
     private String imageAddress;

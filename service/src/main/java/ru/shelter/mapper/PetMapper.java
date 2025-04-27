@@ -18,12 +18,12 @@ public interface PetMapper {
     List<PetResponseDto> toPetResponseList(List<Pet> pets);
 
     // Обновление сущности из DTO
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "imageAddress", ignore = true)
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "imageAddress", ignore = true)
     void updateFromDto(PetCreateRequestDto dto, @MappingTarget Pet pet);
 
     // Создание сущности из DTO
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "imageAddress", ignore = true)
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "imageAddress", ignore = true)
     Pet fromDto(PetCreateRequestDto requestDto);
 }

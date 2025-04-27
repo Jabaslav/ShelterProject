@@ -12,7 +12,7 @@ public record MessageCreateRequestDto(
 
         //Айди потом уберем, будем получать из токена
         @NotEmpty
-        Long authorId,
+        Long userId,
 
         String text
 ){ }

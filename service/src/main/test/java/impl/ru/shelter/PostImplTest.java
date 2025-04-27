@@ -53,7 +53,7 @@ class PostImplTest {
 
         Post post = new Post();
         post.setId(id);
-        post.setAuthor(author);
+        post.setUser(author);
         post.setDescription("Test post description");
         post.setCreationTime(testCreationTime);
         if (withImage) {

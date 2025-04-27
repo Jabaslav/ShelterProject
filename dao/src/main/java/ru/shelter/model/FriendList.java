@@ -16,9 +16,11 @@ import java.time.LocalDateTime;
 public class FriendList {
 
     @Id
-    private Long userId; // Убраны явные @Column, так как они определены в FriendListId
+    @Column(name="user_id")
+    private Long userId;
 
     @Id
+    @Column(name="friend_id")
     private Long friendId;
 
     @Column(nullable = false, length = 20)
@@ -31,6 +33,7 @@ public class FriendList {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @MapsId("userId")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

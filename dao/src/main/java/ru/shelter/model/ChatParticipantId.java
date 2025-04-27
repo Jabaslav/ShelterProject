@@ -12,6 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatParticipantId implements Serializable {
-    private Long chat;
-    private Long participant;
+    private Long chatId;
+    private Long participantId;
 }

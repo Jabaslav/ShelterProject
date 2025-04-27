@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.Interfaces.PostService;
+import ru.shelter.serviceInterfaces.PostService;
 import ru.shelter.dto.request.PostCreateRequestDto;
 import ru.shelter.dto.response.PostResponseDto;
 import ru.shelter.interfaces.PostDao;
@@ -30,7 +30,6 @@ public class PostImpl implements PostService {
     public PostResponseDto add(PostCreateRequestDto requestDto) {
         try {
             Post post = postMapper.fromDto(requestDto);
-            post.setCreationTime(LocalDateTime.now()); // Инициализация времени
             Post savedPost = postDao.save(post);
             log.info("Added post: ID {}", savedPost.getId());
             return postMapper.toPostResponse(savedPost);

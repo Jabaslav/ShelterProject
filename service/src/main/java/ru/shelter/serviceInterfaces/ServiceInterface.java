@@ -1,8 +1,7 @@
-package ru.shelter.Interfaces;
+package ru.shelter.serviceInterfaces;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

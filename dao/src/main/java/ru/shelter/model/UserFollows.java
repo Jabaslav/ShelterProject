@@ -16,9 +16,6 @@ import java.time.LocalDateTime;
 public class UserFollows {
 
     // Класс для составного ID
-    @EmbeddedId
-    @EqualsAndHashCode.Include
-    UserFollowsId userFollowsId;
 
     @Id
     @Column(name = "follower_id", nullable = false)
@@ -33,10 +30,12 @@ public class UserFollows {
     private LocalDateTime followshipCreationTime;
 
     // Связи с пользователями
+    @MapsId("followerId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "follower_id", insertable = false, updatable = false)
     private User follower;
 
+    @MapsId("followingId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "following_id", insertable = false, updatable = false)
     private User following;

@@ -13,11 +13,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PostMapper {
-    @Mapping(source = "author.id", target = "authorId")
+    //@Mapping(source = "author.id", target = "authorId")
     PostResponseDto toPostResponse(Post post);
 
-    @Mapping(target = "author", expression = "java(mapUser(requestDto.authorId()))")
-    @Mapping(target = "creationTime", ignore = true)
+//    @Mapping(target = "author", expression = "java(mapUser(requestDto.authorId()))")
+//    @Mapping(target = "creationTime", ignore = true)
     Post fromDto(PostCreateRequestDto requestDto);
 
     default User mapUser(Long authorId) {
@@ -28,7 +28,7 @@ public interface PostMapper {
 
     List<PostResponseDto> toPostResponseList(List<Post> posts);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "creationTime", ignore = true)
+//    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "creationTime", ignore = true)
     void updateFromDto(PostCreateRequestDto dto, @MappingTarget Post post);
 }

@@ -1,7 +1,7 @@
 package ru.shelter.impl;
 
 import org.springframework.stereotype.Service;
-import ru.shelter.Interfaces.FriendListService;
+import ru.shelter.serviceInterfaces.FriendListService;
 
 import ru.shelter.dto.request.FriendListRequestDto;
 import ru.shelter.dto.response.FriendListResponseDto;

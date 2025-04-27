@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.Interfaces.PetService;
+import ru.shelter.serviceInterfaces.PetService;
 import ru.shelter.dto.request.PetCreateRequestDto;
 import ru.shelter.dto.response.PetResponseDto;
 import ru.shelter.interfaces.PetDao;

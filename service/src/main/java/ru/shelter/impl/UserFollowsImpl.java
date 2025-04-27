@@ -1,12 +1,11 @@
 package ru.shelter.impl;
 
-import ru.shelter.Interfaces.UserFollowsService;
+import ru.shelter.serviceInterfaces.UserFollowsService;
 import ru.shelter.dto.request.UserFollowsRequestDto;
 import ru.shelter.dto.response.UserFollowsResponseDto;
 import ru.shelter.dto.response.UserResponseDto;
 import ru.shelter.model.UserFollowsId;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

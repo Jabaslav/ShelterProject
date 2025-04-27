@@ -17,11 +17,15 @@ import java.time.LocalDateTime;
 public class PublishedPet {
 
     // Составной первичный ключ
-    @EmbeddedId
-    @EqualsAndHashCode.Include
-    PublishedPetId publishedPetId;
+    @Id
+    @Column(name="pet_id")
+    private Long petId;
 
     @Id
+    @Column(name="post_id")
+    private Long postId;
+
+    @MapsId("petId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "pet_id",
@@ -31,7 +35,7 @@ public class PublishedPet {
     @ToString.Exclude
     private Pet pet;
 
-    @Id
+    @MapsId("postId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "publication_id",

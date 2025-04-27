@@ -46,9 +46,8 @@ public class User {
     @Column(name = "user_phone_number", unique = true, length = 20)
     private String phoneNumber;
 
-    @Column(name = "user_profile_pic_addr", length = 50)
+    @Column(name = "user_profile_pic_addr", length = 100)
     private String profilePicAddress;
-
 
     @Column(name = "user_password_hash", nullable = false, length = 60)
     private String password;

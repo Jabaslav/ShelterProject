@@ -13,11 +13,15 @@ import java.io.Serializable;
 public class ChatParticipant {
 
     // Составной первичный ключ
-    @EmbeddedId
-    @EqualsAndHashCode.Include
-    ChatParticipantId chatParticipantId;
+    @Id
+    @Column(name="chat_id")
+    private Long chatId;
 
     @Id
+    @Column(name="participant_id")
+    private Long participantId;
+
+    @MapsId("chatId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "chat_id",
@@ -26,7 +30,8 @@ public class ChatParticipant {
     @ToString.Exclude
     private Chat chat;
 
-    @Id
+
+    @MapsId("participantId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "participant_id",

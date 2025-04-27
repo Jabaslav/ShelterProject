@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.Interfaces.MessageService;
+import ru.shelter.serviceInterfaces.MessageService;
 import ru.shelter.dto.request.MessageCreateRequestDto;
 import ru.shelter.dto.response.MessageResponseDto;
 import ru.shelter.interfaces.MessageDao;

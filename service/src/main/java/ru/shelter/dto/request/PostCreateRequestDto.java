@@ -7,7 +7,7 @@ import ru.shelter.validation.AtLeastOneNotNull;
 @AtLeastOneNotNull(fieldNames = {"description"}) // Теперь проверяет только описание
 public record PostCreateRequestDto (
         @NotNull(message = "Author ID cannot be null")
-        Long authorId,
+        Long userId,
         @Size(max = 140)
         String description
 ) {}

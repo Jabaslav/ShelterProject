@@ -1,4 +1,4 @@
-package ru.shelter.Interfaces;
+package ru.shelter.serviceInterfaces;
 
 public interface ImageStorageService {
 }

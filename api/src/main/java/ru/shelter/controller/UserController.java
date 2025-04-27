@@ -14,8 +14,8 @@ public class UserController {
     private final UserImpl userService;
 
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity<UserResponseDto> getUser(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") Long id) {
         return userService.get(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -1,5 +1,6 @@
 package ru.shelter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,8 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_author_id")
-    private User author;
+    @JsonIgnore
+    private User user;
 
     @Column(name = "post_pic_addr")
     private String imageAddress;

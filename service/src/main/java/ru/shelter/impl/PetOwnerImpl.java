@@ -1,6 +1,6 @@
 package ru.shelter.impl;
 
-import ru.shelter.Interfaces.PetOwnerService;
+import ru.shelter.serviceInterfaces.PetOwnerService;
 import ru.shelter.dto.request.PetOwnerRequestDto;
 import ru.shelter.dto.response.PetOwnerResponseDto;
 import ru.shelter.dto.response.PetResponseDto;

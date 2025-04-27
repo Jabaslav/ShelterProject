@@ -10,9 +10,16 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(PetOwnerId.class)
 public class PetOwner {
-    @EmbeddedId
-    private PetOwnerId id;
+
+    @Id
+    @Column(name="user_id")
+    private Long userId;
+
+    @Id
+    @Column(name="pet_id")
+    private Long petId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("userId")

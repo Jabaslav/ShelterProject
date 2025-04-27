@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.Interfaces.ChatService;
+import ru.shelter.serviceInterfaces.ChatService;
 import ru.shelter.dto.request.ChatCreateRequestDto;
 import ru.shelter.dto.response.ChatResponseDto;
 import ru.shelter.interfaces.ChatDao;

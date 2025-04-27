@@ -1,7 +1,8 @@
 package ru.shelter.impl;
 
 import org.springframework.stereotype.Service;
-import ru.shelter.Interfaces.ChatParticipantService;
+import ru.shelter.dto.response.ChatResponseDto;
+import ru.shelter.serviceInterfaces.ChatParticipantService;
 import ru.shelter.dto.request.ChatParticipantRequestDto;
 import ru.shelter.dto.response.ChatParticipantResponseDto;
 import ru.shelter.dto.response.UserResponseDto;
@@ -9,6 +10,7 @@ import ru.shelter.interfaces.ChatDao;
 import ru.shelter.model.ChatParticipantId;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +22,7 @@ public class ChatParticipantImpl implements ChatParticipantService {
     }
 
     @Override
-    public ArrayList<ChatDao> findChatByUserId(Long userId) {
+    public List<ChatResponseDto> findChatByUserId(Long userId) {
         return null;
     }
 
