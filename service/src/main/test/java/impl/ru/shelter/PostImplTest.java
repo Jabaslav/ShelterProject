@@ -1,4 +1,4 @@
-package ru.shelter.impl;
+package java.impl.ru.shelter;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +9,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.dto.request.PostCreateRequestDto;
 import ru.shelter.dto.response.PostResponseDto;
+import ru.shelter.impl.ImageStorageImpl;
+import ru.shelter.impl.PostImpl;
 import ru.shelter.interfaces.PostDao;
 import ru.shelter.mapper.PostMapper;
 import ru.shelter.model.Post;
