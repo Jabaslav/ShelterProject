@@ -1,17 +1,18 @@
 package ru.shelter.model;
 
 //import jakarta.validation.constraints.*;
-import lombok.Data;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
@@ -38,7 +39,6 @@ public class User {
 
     @Column(name = "user_birthday_date", nullable = false)
     private LocalDate birthdayDate;
-
 
     @Column(name = "user_email", unique = true, length = 100)
     private String email;

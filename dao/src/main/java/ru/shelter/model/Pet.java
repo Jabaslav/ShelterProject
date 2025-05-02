@@ -20,7 +20,7 @@ public class Pet {
     @Column(name = "pet_name", nullable = false, length = 30)
     private String name;
 
-    @Column(name = "pet_pic_addr", unique = true, length = 50)
+    @Column(name = "pet_pic_addr", unique = true, length = 100)
     private String imageAddress;
 
     @Column(name = "pet_type", nullable = false, length = 30)

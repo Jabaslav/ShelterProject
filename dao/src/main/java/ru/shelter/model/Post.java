@@ -2,7 +2,6 @@ package ru.shelter.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +24,10 @@ public class Post {
     @JsonIgnore
     private User user;
 
-    @Column(name = "post_pic_addr")
+    @Column(name = "post_pic_addr", length = 100)
     private String imageAddress;
 
-    @Column(name = "post_description")
-    @Size(max = 140)
+    @Column(name = "post_description", length = 140)
     private String description;
 
     @CreationTimestamp

@@ -1,11 +1,9 @@
 package ru.shelter.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
-import ru.shelter.validation.AtLeastOneNotNull;
 
 // Дто для отправки сообщения в чат
 
-@AtLeastOneNotNull(fieldNames = {"image, text"})
 public record MessageCreateRequestDto(
         @NotEmpty
         Long chatId,
@@ -14,5 +12,6 @@ public record MessageCreateRequestDto(
         @NotEmpty
         Long userId,
 
+        @NotEmpty
         String text
 ){ }

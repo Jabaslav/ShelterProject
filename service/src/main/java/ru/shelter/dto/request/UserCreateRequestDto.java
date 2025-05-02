@@ -1,38 +1,32 @@
 package ru.shelter.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Format;
+import jakarta.validation.constraints.*;
 import ru.shelter.validation.AtLeastOneNotNull;
 
 import java.time.LocalDate;
 
 
-@AtLeastOneNotNull(fieldNames = {"userEmail, userPhoneNumber"})
+@AtLeastOneNotNull(fieldNames = {"email", "phoneNumber"})
 public record UserCreateRequestDto (
-    //@NotEmpty
+    @NotEmpty(message = "Необходимо задать имя пользователя")
     String name,
 
-    //@NotEmpty
+
+    @NotNull (message = "Необходимо указать дату рождения")
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate birthdayDate,
 
-    //@NotEmpty
-    //@Email
+
+    @Email
     String email,
 
-    //@NotEmpty
-    //@Pattern(regexp()) Надо задать формат номера телефона
+
+    @Pattern(regexp = "^\\+[0-9]{10,15}$", message = "Номер телефона должен начинаться с + и содержать 10-15 символов")
     String phoneNumber,
 
-    //@NotEmpty
-    //@Size(min = 8)
+    @NotEmpty(message = "Необходимо указать пароль")
+    @Size(min = 8, message = "Минимальная длина пароля - 8 символов")
     String password
 ){};
 

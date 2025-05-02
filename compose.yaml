@@ -1,20 +1,51 @@
-version: '3'
+
 services:
-  shelter_db:
+  postgres:
     image: postgres:latest
-    hostname: postgres_db
-    restart: always
-    container_name: shelter_db
+    container_name: shelter-db
     environment:
-      POSTGRES_USER: ${POSTGRES_USER_VAL}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_VAL}
-      POSTGRES_DB: ${POSTGRES_DB_VAL}
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: shelterdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d shelterdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - app-network
-    ports:
-      - "5433:5433"  # Внешний порт 5433 → внутренний 5433
+
+  app:
+    image: ${API_IMAGE_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shelter-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - ${API_PORT}
+      - ${API_PORT_DEBUG}
+    environment:
+      SPRING_DATASOURCE_URL: ${POSTGRES_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER_VAL}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD_VAL}
+    env_file:
+      - .env
+    networks:
+      - app-network
     volumes:
-      - shelterdb_volume:/var/lib/docker/volumes/shelterdb_volume/_data
+      - ./:/app
+      - ~/.m2:/root/.m2  # Кэш Maven для ускорения сборок
+    working_dir: /app
+    restart: always
+    stdin_open: true
+    tty: true
 
   pgdmin:
     container_name: pgadmin
@@ -22,42 +53,15 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: noemail@noemail.com
       PGADMIN_DEFAULT_PASSWORD: root
+
     ports:
       - "5050:80"
     networks:
       - app-network
 
-  api:
-    image: ${API_IMAGE_NAME}
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      SPRING_DATASOURCE_URL: ${POSTGRES_DB_URL}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER_VAL}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD_VAL}
-    networks:
-      - app-network
-    volumes:
-      - ./src/main:/app/src/main
-    restart: always
-    expose:
-      - ${API_PORT}
-      - ${API_PORT_DEBUG}
-    stdin_open: true
-    tty: true
-    ports:
-      - ${API_PORT}:${API_PORT}
-      - ${API_PORT_DEBUG}:${API_PORT_DEBUG}
-    container_name: api
-    env_file:
-      - .env
-    depends_on:
-      - postgres_db
+volumes:
+  postgres_data:
 
 networks:
   app-network:
-    driver: bridge
-
-volumes:
-  shelterdb_volume:
+     driver: bridge

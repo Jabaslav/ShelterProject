@@ -24,7 +24,7 @@ public class Chat {
     @Column(name = "chat_name", length = 50)
     private String name;
 
-    @Column(name = "chat_pic_addr", length = 50)
+    @Column(name = "chat_pic_addr", length = 100)
     private String imageAddress;
 
     @CreationTimestamp
