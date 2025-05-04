@@ -13,5 +13,5 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ChatParticipantId implements Serializable {
     private Long chatId;
-    private Long participantId;
+    private Long userId;
 }

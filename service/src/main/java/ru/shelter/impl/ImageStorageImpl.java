@@ -45,4 +45,17 @@ public class ImageStorageImpl {
 
         }
     }
+
+    public boolean validateImage(MultipartFile image) {
+        if (image != null && !image.isEmpty()) {
+            if (!image.getContentType().startsWith("image/")) {
+                throw new IllegalArgumentException("Invalid image type");
+            }
+            if (image.getSize() > 5 * 1024 * 1024) { // 5MB
+                throw new IllegalArgumentException("Image size exceeds 5MB");
+            }
+            return true;
+        }
+        return false;
+    }
 }

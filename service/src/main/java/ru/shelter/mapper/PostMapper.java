@@ -1,13 +1,11 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import ru.shelter.dto.request.PostCreateRequestDto;
 import ru.shelter.dto.response.PostResponseDto;
 import ru.shelter.model.Post;
-import ru.shelter.model.User;
 
 import java.util.List;
 
@@ -20,11 +18,12 @@ public interface PostMapper {
 //    @Mapping(target = "creationTime", ignore = true)
     Post fromDto(PostCreateRequestDto requestDto);
 
-    default User mapUser(Long authorId) {
-        User user = new User();
-        user.setId(authorId);
-        return user;
-    }
+//    default User mapUser(Long authorId) {
+//        User user = new User();
+//        user.setId(authorId);
+//        return user;
+//    }
+// Что это?
 
     List<PostResponseDto> toPostResponseList(List<Post> posts);
 

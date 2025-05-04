@@ -20,8 +20,9 @@
 		<module>api</module>
 		<module>service</module>
 		<module>dao</module>
+        <module>core</module>
 
-	</modules>
+    </modules>
 
 	<url/>
 	<licenses>

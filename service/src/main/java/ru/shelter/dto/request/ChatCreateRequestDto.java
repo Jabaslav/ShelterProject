@@ -2,10 +2,12 @@ package ru.shelter.dto.request;
 
 import jakarta.validation.constraints.NotEmpty;
 
-// Дто для создания чата (да, чат создается без пользователей, и что вы мне сделаете, это REST)
+// Дто для создания чата
 
 public record ChatCreateRequestDto (
 
+    @NotEmpty
+    Long userId,
     @NotEmpty
     String name
 

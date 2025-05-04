@@ -52,6 +52,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.6.0/mapstruct-processor-1.6.0.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.6.0/mapstruct-1.6.0.jar" />
         </processorPath>
+        <module name="core" />
         <module name="api" />
       </profile>
     </annotationProcessing>
@@ -66,6 +67,7 @@
       <module name="api" options="-parameters" />
       <module name="api (1)" options="-parameters" />
       <module name="app" options="-parameters" />
+      <module name="core" options="-parameters" />
       <module name="dao" options="-parameters" />
       <module name="dao (1)" options="-parameters" />
       <module name="service" options="-parameters" />

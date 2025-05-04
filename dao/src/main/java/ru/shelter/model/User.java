@@ -55,6 +55,18 @@ public class User {
     @CreationTimestamp
     @Column(name="registered_since", updatable = false)
     private LocalDateTime registerTime;
+
+    public void addPost(Post post)
+    {
+        posts.add(post);
+        post.setUser(this);
+    }
+
+    public void addMessage(Message message)
+    {
+        messages.add(message);
+        message.setUser(this);
+    }
 }
 
 

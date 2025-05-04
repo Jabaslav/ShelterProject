@@ -5,7 +5,9 @@ import ru.shelter.dto.request.ChatCreateRequestDto;
 import ru.shelter.dto.response.ChatResponseDto;
 
 public interface ChatService extends ServiceInterface<ChatCreateRequestDto, ChatResponseDto, Long>{
-    ChatResponseDto addWithImage(ChatCreateRequestDto requestDto, MultipartFile image);
+    ChatResponseDto add(ChatCreateRequestDto requestDto, MultipartFile image);
+
+    ChatResponseDto update(ChatCreateRequestDto requestDto, Long id);
 
     ChatResponseDto updateWithImage(ChatCreateRequestDto requestDto, Long id, MultipartFile multipartFile);
 }

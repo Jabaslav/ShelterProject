@@ -1,8 +1,10 @@
 package ru.shelter.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "chat_participants")
@@ -19,7 +21,7 @@ public class ChatParticipant {
 
     @Id
     @Column(name="participant_id")
-    private Long participantId;
+    private Long userId;
 
     @MapsId("chatId")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,24 +33,25 @@ public class ChatParticipant {
     private Chat chat;
 
 
-    @MapsId("participantId")
+    @MapsId("userId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "participant_id",
             foreignKey = @ForeignKey(name = "user_exists")
     )
     @ToString.Exclude
-    private User participant;
+    private User user;
 
     @Column(name = "participant_role", columnDefinition = "VARCHAR(30) DEFAULT 'default'")
     @Enumerated(EnumType.STRING)
-    private ParticipantRole role = ParticipantRole.DEFAULT;
+    private ParticipantRole role = ParticipantRole.basic;
 
     @Column(name = "is_participant_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean isActive = true;
 
     public enum ParticipantRole {
-        ADMIN, MODERATOR, DEFAULT
+        admin, moderator, basic
     }
+
 }
 

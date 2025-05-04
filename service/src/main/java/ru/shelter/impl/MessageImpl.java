@@ -5,12 +5,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.serviceInterfaces.MessageService;
 import ru.shelter.dto.request.MessageCreateRequestDto;
 import ru.shelter.dto.response.MessageResponseDto;
+import ru.shelter.interfaces.ChatDao;
 import ru.shelter.interfaces.MessageDao;
+import ru.shelter.interfaces.UserDao;
 import ru.shelter.mapper.MessageMapper;
+import ru.shelter.model.Chat;
 import ru.shelter.model.Message;
+import ru.shelter.model.User;
+import ru.shelter.serviceInterfaces.MessageService;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,14 +26,22 @@ import java.util.Optional;
 public class MessageImpl implements MessageService {
 
     private final MessageDao messageDao;
+    private final UserDao userDao;
+    private final ChatDao chatDao;
     private final MessageMapper messageMapper;
     private final ImageStorageImpl imageStorage;
 
     @Override
-    public MessageResponseDto add(MessageCreateRequestDto requestDto) {
+    public MessageResponseDto add(MessageCreateRequestDto requestDto, MultipartFile image) {
         try {
             Message message = messageMapper.fromDto(requestDto); // создание entity через маппер
+            if (imageStorage.validateImage(image))
+                message.setImageAddress(imageStorage.saveImage(image));
+            User author = userDao.findById(requestDto.userId()).orElseThrow(); // ДОЛЖНО ВЫБРОСИТЬ ИСКЛЮЧЕНИЕ О ТОМ, ЧТО НЕ НАШЛО ЗАЯВЛЕННОГО АВТОРА
+            Chat chat = chatDao.findById(requestDto.chatId()).orElseThrow(); // ТО ЖЕ, НО С ЧАТОМ
             Message savedMessage = messageDao.save(message); // сохраняем сообщение в бд
+            author.addMessage(savedMessage); // Добавляем автору новое сообщение, там же сообщению выставится автор
+            chat.addMessage(savedMessage);
             MessageResponseDto response = messageMapper.toMessageResponse(savedMessage); // готовим ответ на запрос
             log.info("Adding message: {}", response);
             return response;
@@ -37,26 +49,8 @@ public class MessageImpl implements MessageService {
         catch (Exception e)
         {
             log.error("Add Message error:", e);
-        };
-        return null;
-    }
-
-    @Override
-    public MessageResponseDto addWithImage(MessageCreateRequestDto requestDto, MultipartFile image) {
-        try {
-            Message message = messageMapper.fromDto(requestDto); // создание entity через маппер
-            if (image!=null && !image.isEmpty())
-                message.setImageAddress(imageStorage.saveImage(image));
-            messageDao.save(message); // сохраняем сообщение в бд
-            MessageResponseDto response = messageMapper.toMessageResponse(message); // готовим ответ на запрос
-            log.info("Adding message: {}", response);
-            return response;
+            throw e;
         }
-        catch (Exception e)
-        {
-            log.error("Add Message error:", e);
-        };
-        return null;
     }
 
 
@@ -74,41 +68,20 @@ public class MessageImpl implements MessageService {
         catch (Exception e)
         {
             log.error ("Get message error:", e);
-            return Optional.empty();
+            throw e;
         }
     }
 
+
     @Override
-    public MessageResponseDto update(MessageCreateRequestDto requestDto, Long id) {
+    public MessageResponseDto update(MessageCreateRequestDto requestDto, Long id, MultipartFile image) {
         try {
             Optional<Message> Message = messageDao.findById(id);
             if (Message.isPresent())
             {
                 Message message = messageMapper.fromDto(requestDto);
                 message.setId(id);
-                messageDao.save(message);
-                log.info("Updating message: {}", requestDto);
-                return (messageMapper.toMessageResponse(message));
-            }
-            else
-                throw new EntityNotFoundException();
-        }
-        catch (Exception e)
-        {
-            log.error("Update message error:", e);
-            return null;
-        }
-    }
-
-    @Override
-    public MessageResponseDto updateWithImage(MessageCreateRequestDto requestDto, Long id, MultipartFile image) {
-        try {
-            Optional<Message> Message = messageDao.findById(id);
-            if (Message.isPresent())
-            {
-                Message message = messageMapper.fromDto(requestDto);
-                message.setId(id);
-                if (image!=null && !image.isEmpty())
+                if (imageStorage.validateImage(image))
                     message.setImageAddress(imageStorage.saveImage(image));
                 messageDao.save(message);
                 log.info("Updating message: {}", requestDto);
@@ -120,7 +93,7 @@ public class MessageImpl implements MessageService {
         catch (Exception e)
         {
             log.error("Update message error:", e);
-            return null;
+            throw e;
         }
     }
 
@@ -134,7 +107,7 @@ public class MessageImpl implements MessageService {
         catch (Exception e)
         {
             log.error("Deleting message error:", e);
-            return false;
+            throw e;
         }
     }
 

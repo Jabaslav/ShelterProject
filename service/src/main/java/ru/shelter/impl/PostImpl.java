@@ -6,14 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.serviceInterfaces.PostService;
 import ru.shelter.dto.request.PostCreateRequestDto;
 import ru.shelter.dto.response.PostResponseDto;
 import ru.shelter.interfaces.PostDao;
+import ru.shelter.interfaces.UserDao;
 import ru.shelter.mapper.PostMapper;
 import ru.shelter.model.Post;
+import ru.shelter.model.User;
+import ru.shelter.serviceInterfaces.PostService;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,45 +25,23 @@ import java.util.Optional;
 public class PostImpl implements PostService {
     private final PostMapper postMapper;
     private final PostDao postDao;
+    private final UserDao userDao;
     private final ImageStorageImpl imageStorage;
 
     @Override
-    public PostResponseDto add(PostCreateRequestDto requestDto) {
+    public PostResponseDto add(PostCreateRequestDto requestDto, MultipartFile image) {
         try {
             Post post = postMapper.fromDto(requestDto);
+            User user = userDao.findById(requestDto.userId()).orElseThrow();
+            if (imageStorage.validateImage(image)) // сохраняем изображение, если с ним все в порядке
+                post.setImageAddress(imageStorage.saveImage(image));
+            user.addPost(post);
             Post savedPost = postDao.save(post);
             log.info("Added post: ID {}", savedPost.getId());
             return postMapper.toPostResponse(savedPost);
         } catch (Exception e) {
             log.error("Error adding post: {}", e.getMessage());
-            throw new RuntimeException("Failed to create post");
-        }
-    }
-
-    @Override
-    public PostResponseDto addWithImage(PostCreateRequestDto requestDto, MultipartFile image) {
-        validateImage(image); // Валидация изображения
-        try {
-            Post post = postMapper.fromDto(requestDto);
-            post.setImageAddress(imageStorage.saveImage(image));
-            post.setCreationTime(LocalDateTime.now());
-            Post savedPost = postDao.save(post);
-            log.info("Added post with image: ID {}", savedPost.getId());
-            return postMapper.toPostResponse(savedPost);
-        } catch (Exception e) {
-            log.error("Error adding post with image: {}", e.getMessage());
-            throw new RuntimeException("Failed to create post with image");
-        }
-    }
-
-    private void validateImage(MultipartFile image) {
-        if (image != null && !image.isEmpty()) {
-            if (!image.getContentType().startsWith("image/")) {
-                throw new IllegalArgumentException("Invalid image type");
-            }
-            if (image.getSize() > 5 * 1024 * 1024) { // 5MB
-                throw new IllegalArgumentException("Image size exceeds 5MB");
-            }
+            throw e;
         }
     }
 
@@ -82,26 +61,12 @@ public class PostImpl implements PostService {
     }
 
     @Override
-    public PostResponseDto update(PostCreateRequestDto requestDto, Long id) {
+    public PostResponseDto update(PostCreateRequestDto requestDto, Long id, MultipartFile image) {
         return postDao.findById(id)
                 .map(existingPost -> {
                     postMapper.updateFromDto(requestDto, existingPost);
                     postDao.save(existingPost);
                     log.info("Updated post: ID {}", id);
-                    return postMapper.toPostResponse(existingPost);
-                })
-                .orElseThrow(EntityNotFoundException::new);
-    }
-
-    @Override
-    public PostResponseDto updateWithImage(PostCreateRequestDto requestDto, Long id, MultipartFile image) {
-        validateImage(image);
-        return postDao.findById(id)
-                .map(existingPost -> {
-                    postMapper.updateFromDto(requestDto, existingPost);
-                    existingPost.setImageAddress(imageStorage.saveImage(image));
-                    postDao.save(existingPost);
-                    log.info("Updated post with image: ID {}", id);
                     return postMapper.toPostResponse(existingPost);
                 })
                 .orElseThrow(EntityNotFoundException::new);

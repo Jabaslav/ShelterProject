@@ -5,7 +5,8 @@ import ru.shelter.dto.request.UserCreateRequestDto;
 import ru.shelter.dto.response.UserResponseDto;
 
 public interface UserService extends ServiceInterface<UserCreateRequestDto, UserResponseDto, Long>{
-    UserResponseDto addWithImage(UserCreateRequestDto requestDto, MultipartFile image);
 
-    UserResponseDto updateWithImage(UserCreateRequestDto requestDto, Long id, MultipartFile image);
+    UserResponseDto add(UserCreateRequestDto requestDto, MultipartFile image);
+
+    UserResponseDto update(UserCreateRequestDto requestDto, Long id, MultipartFile image);
 }

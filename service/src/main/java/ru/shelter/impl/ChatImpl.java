@@ -5,12 +5,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.serviceInterfaces.ChatService;
 import ru.shelter.dto.request.ChatCreateRequestDto;
+import ru.shelter.dto.request.ChatParticipantRequestDto;
 import ru.shelter.dto.response.ChatResponseDto;
+import ru.shelter.exception.ImageFileException;
 import ru.shelter.interfaces.ChatDao;
 import ru.shelter.mapper.ChatMapper;
 import ru.shelter.model.Chat;
+import ru.shelter.model.ChatParticipant;
+import ru.shelter.serviceInterfaces.ChatService;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,42 +26,29 @@ public class ChatImpl implements ChatService {
     private final ChatMapper chatMapper;
     private final ChatDao chatDao;
     private final ImageStorageImpl imageStorage;
+    private final ChatParticipantImpl chatParticipantImpl;
 
     @Override
-    public ChatResponseDto add(ChatCreateRequestDto requestDto) {
+    public ChatResponseDto add(ChatCreateRequestDto requestDto, MultipartFile image) {
         try {
-            Chat chat = chatMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
-            chatDao.save(chat); // сохраняем чат в бд
-            ChatResponseDto response = chatMapper.toChatResponse(chat);
-            log.info("Adding chat: {}", response);
-            return response;
-        }
-        catch (Exception e)
-        {
-            log.error("Add chat error:", e);
-        };
-        return null;
-    }
-
-    @Override
-    public ChatResponseDto addWithImage(ChatCreateRequestDto requestDto, MultipartFile image) {
-        try {
-            Chat chat = chatMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
-            if (image !=null && !image.isEmpty())
-            {
-                chat.setImageAddress(imageStorage.saveImage(image));
+            if (image == null || image.isEmpty() || !image.getContentType().startsWith("image/")) {
+                throw new ImageFileException("Не удалось считать изображение из файла");
             }
+
+            Chat chat = chatMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
+            chat.setImageAddress(imageStorage.saveImage(image));
             chatDao.save(chat); // сохраняем чат в бд
             ChatResponseDto response = chatMapper.toChatResponse(chat);
+            chatParticipantImpl.add(new ChatParticipantRequestDto(response.id(), requestDto.userId(), ChatParticipant.ParticipantRole.admin));
             log.info("Adding chat: {}", response);
             return response;
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             log.error("Add chat error:", e);
-        };
-        return null;
+            throw e;
+        }
     }
+
 
     @Override
     public Optional<ChatResponseDto> get(Long id) {

@@ -5,9 +5,8 @@ import java.time.LocalDateTime;
 
 public record PostResponseDto (
 
-    Long postId,
-    Long authorId,
-    String pictureAddress,
+    Long id,
+    String imageAddress,
     String description,
     LocalDateTime creationTime
 ){}

@@ -7,7 +7,8 @@ import ru.shelter.dto.response.MessageResponseDto;
 
 
 public interface MessageService extends ServiceInterface<MessageCreateRequestDto, MessageResponseDto, Long>{
-    MessageResponseDto addWithImage(MessageCreateRequestDto requestDto, MultipartFile image);
 
-    MessageResponseDto updateWithImage(MessageCreateRequestDto requestDto, Long id, MultipartFile image);
+    MessageResponseDto add(MessageCreateRequestDto requestDto, MultipartFile image);
+
+    MessageResponseDto update(MessageCreateRequestDto requestDto, Long id, MultipartFile image);
 }

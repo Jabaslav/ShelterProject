@@ -9,4 +9,8 @@ import java.util.List;
 
 public interface FriendListService extends ServiceInterface<FriendListRequestDto, FriendListResponseDto, FriendListId> {
     List<UserResponseDto> findFriendByUserId(Long userId);
+
+    FriendListResponseDto add(FriendListRequestDto Object);
+
+    FriendListResponseDto update(FriendListRequestDto Object, FriendListId friendListId);
 }

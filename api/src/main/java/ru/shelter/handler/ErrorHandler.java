@@ -2,6 +2,7 @@ package ru.shelter.handler;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +12,7 @@ import ru.shelter.exception.NotFoundException;
 import ru.shelter.exception.ValidationException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -56,5 +58,36 @@ public class ErrorHandler {
     public ErrorResponse exceptionError(final Exception e) {
         log.error("ERROR[500]: Произошла ошибка Exception: {}", e.getMessage(), e);
         return new ErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse databaseError(final Exception e) {
+
+        String message ="Database error. ";
+
+        if (e.getCause() instanceof ConstraintViolationException)
+        {
+            message += "Duplicate entry: " + extractConstraintName(e.getCause());
+        }
+
+        log.error("ERROR[500]: Произошла ошибка Exception: {}", e.getMessage(), e);
+        return new ErrorResponse(message);
+    }
+// TODO не получает сообщения о конкретном ограничении бд
+    private String extractConstraintName(Throwable e) {
+        // Пример для Hibernate
+        if (e instanceof ConstraintViolationException cve) {
+            return cve.getConstraintViolations().toString(); // Например, "uk_user_email"
+        }
+        return "unknown";
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse elementNotFoundError(final Exception e)
+    {
+        log.error("ERROR[404]: Запрошенный ресурс не найден: {}", e.getMessage(), e);
+        return new  ErrorResponse(e.getMessage());
     }
 }

@@ -5,23 +5,20 @@ import ru.shelter.dto.response.PostResponseDto;
 import ru.shelter.serviceInterfaces.PublishedPetService;
 import ru.shelter.dto.request.PublishedPetRequestDto;
 import ru.shelter.dto.response.PublishedPetResponseDto;
-import ru.shelter.interfaces.PetDao;
-import ru.shelter.interfaces.PostDao;
 import ru.shelter.model.PublishedPetId;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class PublishedPetImpl implements PublishedPetService {
 
     @Override
-    public List<PetResponseDto> findPetByPost(Long postId) {
+    public List<PetResponseDto> findPetsByPost(Long postId) {
         return null;
     }
 
     @Override
-    public List<PostResponseDto> findPostByPet(Long petId) {
+    public List<PostResponseDto> findPostsByPet(Long petId) {
         return null;
     }
 

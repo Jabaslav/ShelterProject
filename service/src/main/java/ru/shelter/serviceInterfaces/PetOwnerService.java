@@ -14,4 +14,8 @@ public interface PetOwnerService extends ServiceInterface<PetOwnerRequestDto, Pe
 
     List<PetResponseDto> findPetByOwnerId(Long ownerId);
     List<UserResponseDto> findOwnerByPetId(Long petId);
+
+    PetOwnerResponseDto add(PetOwnerRequestDto Object);
+
+    PetOwnerResponseDto update(PetOwnerRequestDto Object, PetOwnerId petOwnerId);
 }
