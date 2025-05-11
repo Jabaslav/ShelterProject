@@ -1,15 +1,15 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
-import ru.shelter.dto.request.ChatParticipantRequestDto;
-import ru.shelter.dto.response.ChatParticipantResponseDto;
-import ru.shelter.model.ChatParticipant;
+import ru.shelter.dto.request.ChatMemberRequest;
+import ru.shelter.dto.response.ChatMemberResponse;
+import ru.shelter.model.ChatMember;
 
 import java.util.List;
 
 @Mapper(componentModel="spring")
 public interface ChatParticipantMapper {
-    ChatParticipantResponseDto toChatParticipantResponse(ChatParticipant chatParticipant);
-    List<ChatParticipantResponseDto> toChatParticipantResponseList(List<ChatParticipant> chatParticipantList);
-    ChatParticipant fromDto(ChatParticipantRequestDto requestDto);
+    ChatMemberResponse toChatParticipantResponse(ChatMember chatMember);
+    List<ChatMemberResponse> toChatParticipantResponseList(List<ChatMember> chatMemberList);
+    ChatMember fromDto(ChatMemberRequest requestDto);
 }

@@ -31,13 +31,13 @@ public class Chat {
     @Column(name = "followship_creation_time", updatable = false)
     private LocalDateTime creationTime;
 
-    @OneToMany(mappedBy = "chat", cascade=CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
-
-    public void addMessage(Message message)
-    {
-        messages.add(message);
-        message.setChat(this);
-    }
+//    @OneToMany(mappedBy = "chat", cascade=CascadeType.ALL)
+//    private List<Message> messages = new ArrayList<>();
+//
+//    public void addMessage(Message message)
+//    {
+//        messages.add(message);
+//        message.setChat(this);
+//    }
 
 }

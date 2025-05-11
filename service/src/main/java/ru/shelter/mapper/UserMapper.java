@@ -1,10 +1,9 @@
 package ru.shelter.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import ru.shelter.dto.request.UserCreateRequestDto;
-import ru.shelter.dto.response.UserResponseDto;
+import ru.shelter.dto.request.UserRequest;
+import ru.shelter.dto.response.UserResponse;
 import ru.shelter.model.User;
 
 import java.util.List;
@@ -12,13 +11,13 @@ import java.util.List;
 @Mapper(componentModel="spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-    UserResponseDto toUserResponse (User user);
+    UserResponse toUserResponse (User user);
 
-    List<UserResponseDto> toUserResponseList (List<User> users);
+    List<UserResponse> toUserResponseList (List<User> users);
 
 //    @Mapping(target="id", ignore = true)
 //    @Mapping(target="password", ignore = true)
 //    @Mapping(target="registerTime", ignore=true)
 //    @Mapping(target="profilePicAddress", ignore=true)
-    User fromDto(UserCreateRequestDto requestDto);
+    User fromDto(UserRequest requestDto);
 }

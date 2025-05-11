@@ -1,14 +1,14 @@
 package ru.shelter.controller;
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import ru.shelter.dto.request.PetCreateRequestDto;
-import ru.shelter.dto.response.PetResponseDto;
-import ru.shelter.impl.PetImpl;
+import ru.shelter.dto.request.PetRequest;
+import ru.shelter.dto.response.PetResponse;
+import ru.shelter.impl.PetService;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,78 +16,38 @@ import java.util.Optional;
 @RequestMapping("/api/pets")
 @RequiredArgsConstructor
 public class PetController {
-    private final PetImpl petService;
+    private final PetService petService;
 
-    @PostMapping
-    public ResponseEntity<PetResponseDto> createPet(@RequestBody PetCreateRequestDto requestDto) {
-        try {
-            PetResponseDto response = petService.add(requestDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-
-    @PostMapping("/with-image")
-    public ResponseEntity<PetResponseDto> createPetWithImage(
-            @RequestPart PetCreateRequestDto requestDto,
-            @RequestPart MultipartFile image
-    ) {
-        try {
-            PetResponseDto response = petService.addWithImage(requestDto, image);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createPet(@RequestPart(value="petDto") PetRequest requestDto,
+                                       @RequestPart(value="image", required = false) MultipartFile image) {
+        return new ResponseEntity<>(petService.add(requestDto, image), HttpStatus.CREATED); // Http 201
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PetResponseDto> getPet(@PathVariable Long id) {
-        Optional<PetResponseDto> response = petService.get(id);
+    public ResponseEntity<PetResponse> getPet(@PathVariable Long id) {
+        Optional<PetResponse> response = petService.get(id);
         return response.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<PetResponseDto> updatePet(
+    @PutMapping(path = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<PetResponse> updatePet(
             @PathVariable Long id,
-            @RequestBody PetCreateRequestDto requestDto
+            @RequestPart(value="petDto") PetRequest requestDto,
+            @RequestPart(value="image", required = false) MultipartFile image
     ) {
-        try {
-            PetResponseDto response = petService.update(requestDto, id);
-            return ResponseEntity.ok(response);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+            return new ResponseEntity<>(petService.update(requestDto, id, image), HttpStatus.OK); // Http 200
     }
 
-    @PutMapping("/{id}/with-image")
-    public ResponseEntity<PetResponseDto> updatePetWithImage(
-            @PathVariable Long id,
-            @RequestPart PetCreateRequestDto requestDto,
-            @RequestPart MultipartFile image
-    ) {
-        try {
-            PetResponseDto response = petService.updateWithImage(requestDto, id, image);
-            return ResponseEntity.ok(response);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePet(@PathVariable Long id) {
-        boolean isDeleted = petService.remove(id);
-        return isDeleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    public ResponseEntity<?> deletePet(@PathVariable Long id) {
+        return new ResponseEntity<>(petService.remove(id), HttpStatus.NO_CONTENT); // Http 204
     }
 
     @GetMapping
-    public ResponseEntity<List<PetResponseDto>> getAllPets() {
-        List<PetResponseDto> pets = petService.getAll();
-        return ResponseEntity.ok(pets);
+    public ResponseEntity<List<PetResponse>> getAllPets() {
+        return new ResponseEntity<>(petService.getAll(), HttpStatus.OK); // Http 200
     }
 }

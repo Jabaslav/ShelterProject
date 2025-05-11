@@ -2,50 +2,56 @@ package ru.shelter.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.shelter.dto.request.FriendListRequestDto;
-import ru.shelter.dto.response.FriendListResponseDto;
-import ru.shelter.impl.FriendImpl;
+import ru.shelter.dto.request.FriendListRequest;
+import ru.shelter.dto.response.FriendListResponse;
+import ru.shelter.impl.FriendService;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/friends")
+@RequestMapping("/api/users/{user_id}/friends")
 @RequiredArgsConstructor
 public class FriendController {
-    private final FriendImpl friendService;
+    private final FriendService friendService;
 
     @PostMapping
-    public FriendListResponseDto addFriend(@RequestBody FriendListRequestDto requestDto) {
-        return friendService.addFriend(requestDto);
+    public FriendListResponse addFriend(@PathVariable("user_id") Long userId,
+                                        @RequestBody FriendListRequest requestDto) {
+        return friendService.addFriend(userId, requestDto);
     }
 
-    @GetMapping("/{userId}")
-    public List<FriendListResponseDto> getFriendsByUserId(@PathVariable Long userId) {
+    @GetMapping("/all")
+    public List<FriendListResponse> getFriendsByUserId(@PathVariable("user_id") Long userId) {
         return friendService.getFriendsByUserId(userId);
     }
 
-    @GetMapping("/{userId}/{friendId}")
-    public Optional<FriendListResponseDto> getFriendship(
-            @PathVariable Long userId,
-            @PathVariable Long friendId
+    @GetMapping("/requests")
+    public List<FriendListResponse> getFriendRequestsByUserId(@PathVariable("user_id") Long userId) {
+        return friendService.getFriendRequestsByUserId(userId);
+    }
+
+    @GetMapping("/{friendId}")
+    public Optional<FriendListResponse> getFriendship(
+            @PathVariable("user_id") Long userId,
+            @PathVariable("friend_id") Long friendId
     ) {
         return friendService.getFriendship(userId, friendId);
     }
 
-    @PutMapping("/{userId}/{friendId}")
-    public FriendListResponseDto updateFriendship(
-            @PathVariable Long userId,
-            @PathVariable Long friendId,
-            @RequestBody FriendListRequestDto requestDto
+    @PutMapping("/{friend_id}")
+    public FriendListResponse updateFriendship(
+            @PathVariable("user_id") Long userId,
+            @PathVariable("friend_id") Long friendId,
+            @RequestBody FriendListRequest requestDto
     ) {
         return friendService.updateFriendship(userId, friendId, requestDto);
     }
 
-    @DeleteMapping("/{userId}/{friendId}")
+    @DeleteMapping("/{friend_id}")
     public boolean deleteFriendship(
-            @PathVariable Long userId,
-            @PathVariable Long friendId
+            @PathVariable("user_id") Long userId,
+            @PathVariable("friend_id") Long friendId
     ) {
         return friendService.deleteFriendship(userId, friendId);
     }

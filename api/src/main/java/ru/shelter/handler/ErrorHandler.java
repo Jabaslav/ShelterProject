@@ -2,6 +2,7 @@ package ru.shelter.handler;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,6 +33,13 @@ public class ErrorHandler {
         log.warn("ERROR[400]: Произошла ошибка ConstraintViolationException: {}", e.getMessage());
         return new ErrorResponse(e.getMessage());
     }
+
+//    @ExceptionHandler(BadRequestException.class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ErrorResponse constraintViolationError(final BadRequestException e) {
+//        log.warn("ERROR[400]: Произошла ошибка BadRequestException: {}", e.getMessage());
+//        return new ErrorResponse(e.getMessage());
+//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

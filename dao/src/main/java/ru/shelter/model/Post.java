@@ -20,10 +20,12 @@ public class Post {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_author_id")
-    @JsonIgnore
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "post_author_id")
+//    @JsonIgnore
+//    private User user;
+    @Column(name="author_id")
+    private Long authorId;
 
     @Column(name = "post_pic_addr", length = 100)
     private String imageAddress;

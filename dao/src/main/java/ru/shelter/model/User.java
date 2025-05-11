@@ -28,11 +28,11 @@ public class User {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Post> posts = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
-    private List<Message> messages = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Post> posts = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
+//    private List<Message> messages = new ArrayList<>();
 
     @Column(name = "user_name", nullable = false, length = 30)
     private String name;
@@ -56,17 +56,17 @@ public class User {
     @Column(name="registered_since", updatable = false)
     private LocalDateTime registerTime;
 
-    public void addPost(Post post)
-    {
-        posts.add(post);
-        post.setUser(this);
-    }
-
-    public void addMessage(Message message)
-    {
-        messages.add(message);
-        message.setUser(this);
-    }
+//    public void addPost(Post post)
+//    {
+//        posts.add(post);
+//        post.setUser(this);
+//    }
+//
+//    public void addMessage(Message message)
+//    {
+//        messages.add(message);
+//        message.setUser(this);
+//    }
 }
 
 
