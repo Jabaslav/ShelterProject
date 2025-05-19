@@ -12,9 +12,12 @@ import java.util.Optional;
 
 @Repository
 public interface ChatMemberRepo extends JpaRepository<ChatMember, ChatMemberId> {
-    @Query("SELECT cm FROM ChatMember cm WHERE cm.chatId=chatId")
+    @Query("SELECT cm FROM ChatMember cm WHERE cm.chatId=:chatId")
     Optional<List<ChatMember>> findUsersByChatId(@Param("chatId") Long chatId);
 
-    @Query("SELECT cm FROM ChatMember cm WHERE cm.userId=userId")
-    Optional<List<ChatMember>> findChatsByUserId(@Param("userId") Long chatId);
+    @Query("SELECT cm FROM ChatMember cm WHERE cm.userId=:userId")
+    Optional<List<ChatMember>> findChatsByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT cm FROM ChatMember cm WHERE cm.userId=:userId AND cm.chatId=:chatId")
+    Optional<ChatMember> isUserInChat(@Param("userId") Long userId,@Param("chatId") Long chatId);
 }

@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import ru.shelter.dto.request.PostRequest;
+import ru.shelter.dto.request.PostUpdateRequest;
 import ru.shelter.dto.response.PostResponse;
 import ru.shelter.model.Post;
 
@@ -29,5 +30,5 @@ public interface PostMapper {
 
 //    @Mapping(target = "id", ignore = true)
 //    @Mapping(target = "creationTime", ignore = true)
-    void updateFromDto(PostRequest dto, @MappingTarget Post post);
+    void updateFromDto(PostUpdateRequest dto, @MappingTarget Post post);
 }

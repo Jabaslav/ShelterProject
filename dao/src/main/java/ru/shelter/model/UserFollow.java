@@ -4,16 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_follows")
-@IdClass(UserFollowsId.class)  // Для составного первичного ключа
+@IdClass(UserFollowId.class)  // Для составного первичного ключа
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFollows {
+public class UserFollow {
 
     // Класс для составного ID
 
@@ -30,13 +29,13 @@ public class UserFollows {
     private LocalDateTime followshipCreationTime;
 
     // Связи с пользователями
-    @MapsId("followerId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "follower_id", insertable = false, updatable = false)
-    private User follower;
+//    @MapsId("followerId")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "follower_id", insertable = false, updatable = false)
+//    private User follower;
 
-    @MapsId("followingId")
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "following_id", insertable = false, updatable = false)
-    private User following;
+//    @MapsId("followingId")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "following_id", insertable = false, updatable = false)
+//    private User following;
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserFollowsId implements Serializable {
+public class UserFollowId implements Serializable {
     private Long followerId;
     private Long followingId;
 }

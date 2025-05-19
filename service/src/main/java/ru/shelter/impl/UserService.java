@@ -30,17 +30,14 @@ public class UserService implements UserInterface {
 
 
     @Override
-    public UserResponse add(UserRequest requestDto, MultipartFile image) {
+    public User add(UserRequest requestDto, MultipartFile image) {
         try {
             User user = userMapper.fromDto(requestDto); // создание entity через маппер, пароль не заполняется
             user.setPassword(passwordEncoder.encode(requestDto.password()));// Хэширование пароля
             if (imageStorage.validateImage(image)){
                 user.setProfilePicAddress(imageStorage.saveImage(image));
             }
-            userRepo.save(user); // сохраняем пользователя в бд
-            UserResponse response = userMapper.toUserResponse(user);
-            log.info("Adding user: {}", response);
-            return response;
+            return userRepo.save(user);
         }
         catch (DataAccessException e)
         {

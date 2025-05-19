@@ -14,4 +14,6 @@ public interface ChatMemberInterface extends ServiceInterface<ChatMemberRequest,
     ChatMemberResponse add(ChatMemberRequest requestDto);
 
     ChatMemberResponse update(ChatMemberRequest requestDto);
+
+    boolean isUserInChat(Long userId, Long chatId);
 }

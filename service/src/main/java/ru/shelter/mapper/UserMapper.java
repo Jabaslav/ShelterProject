@@ -15,9 +15,5 @@ public interface UserMapper {
 
     List<UserResponse> toUserResponseList (List<User> users);
 
-//    @Mapping(target="id", ignore = true)
-//    @Mapping(target="password", ignore = true)
-//    @Mapping(target="registerTime", ignore=true)
-//    @Mapping(target="profilePicAddress", ignore=true)
     User fromDto(UserRequest requestDto);
 }

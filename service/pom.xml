@@ -80,7 +80,7 @@
             <version>6.4.4</version>
         </dependency>
         <dependency>
-            <groupId>ru.ssau.tk.labochkimoi.smirnov</groupId>
+            <groupId>ru.shelter</groupId>
             <artifactId>core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
@@ -95,13 +95,12 @@
     </properties>
 
     <build>
-        <testSourceDirectory>src/main/test</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <annotationProcessorPaths>
+                    <annotationProcessorPaths>a
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <version>1.18.36</version>

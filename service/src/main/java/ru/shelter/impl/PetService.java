@@ -55,7 +55,7 @@ public class PetService implements PetInterface {
         }
     }
 
-//todo добавить обновление изображения
+
     public PetResponse update(PetRequest requestDto, Long id, MultipartFile image) {
         return petRepo.findById(id)
                 .map(existingPet -> {

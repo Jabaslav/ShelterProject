@@ -8,7 +8,7 @@ import ru.shelter.model.ChatMember;
 import java.util.List;
 
 @Mapper(componentModel="spring")
-public interface ChatParticipantMapper {
+public interface ChatMemberMapper {
     ChatMemberResponse toChatParticipantResponse(ChatMember chatMember);
     List<ChatMemberResponse> toChatParticipantResponseList(List<ChatMember> chatMemberList);
     ChatMember fromDto(ChatMemberRequest requestDto);

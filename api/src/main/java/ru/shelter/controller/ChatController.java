@@ -1,5 +1,6 @@
 package ru.shelter.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,8 @@ import ru.shelter.impl.ChatMemberService;
 import ru.shelter.impl.MessageService;
 import ru.shelter.model.ChatMember;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/chats")
 @RequiredArgsConstructor
@@ -28,7 +31,7 @@ public class ChatController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ChatResponse> createChat(
-            @RequestPart(value = "chatDto") ChatRequest requestDto,
+            @Valid @RequestPart(value = "chatDto") ChatRequest requestDto,
             @RequestPart(value="image", required = false) MultipartFile image
     ) {
         return new ResponseEntity<>(chatService.add(requestDto, image), HttpStatus.CREATED); // Http 201
@@ -41,7 +44,7 @@ public class ChatController {
 
     @PutMapping(path = "/{chat_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateChat(@PathVariable("chat_id") Long chatId,
-                                        @RequestPart("chat") ChatRequest requestDto,
+                                        @Valid @RequestPart("chat") ChatRequest requestDto,
                                         @RequestPart(value = "image", required = false) MultipartFile image) {
         return new ResponseEntity<>(chatService.update(requestDto, chatId, image), HttpStatus.OK); // Http 200
     }
@@ -49,7 +52,7 @@ public class ChatController {
     @PostMapping(path = "/{chat_id}/members")
     public ResponseEntity<ChatMemberResponse> addChatMember(
             @PathVariable("chat_id") Long chatId,
-            @RequestBody ChatMemberRequest request)
+            @Valid @RequestBody ChatMemberRequest request)
     {
         return new ResponseEntity<>(chatParticipantService.add(request), HttpStatus.CREATED); // Http 201
     }
@@ -79,7 +82,7 @@ public class ChatController {
 
 
     @GetMapping
-    public ResponseEntity<?> getAllChats() {
+    public ResponseEntity<List<ChatResponse>> getAllChats() {
         return new ResponseEntity<>(chatService.getAll(), HttpStatus.OK); // Http 200
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.shelter.dto.request.PostRequest;
+import ru.shelter.dto.request.PostUpdateRequest;
 import ru.shelter.dto.response.PostResponse;
 import ru.shelter.interfaces.PostRepo;
 import ru.shelter.interfaces.UserRepo;
@@ -17,6 +18,7 @@ import ru.shelter.serviceInterfaces.PostInterface;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -27,6 +29,20 @@ public class PostService implements PostInterface {
     private final PostRepo postRepo;
     private final UserRepo userRepo;
     private final ImageStorageService imageStorage;
+
+    public boolean isUserAuthor(Long userId, Long postId)
+    {
+        try
+        {
+            Post post = postRepo.findById(postId).orElseThrow(() -> new EntityNotFoundException("Нет поста с таким id"));
+            return Objects.equals(post.getAuthorId(), userId);
+        }
+        catch (Exception e)
+        {
+            log.error("IsUserAuthor error: {}", e.getMessage());
+            throw e;
+        }
+    }
 
     @Override
     public PostResponse add(PostRequest requestDto, MultipartFile image) {
@@ -60,7 +76,7 @@ public class PostService implements PostInterface {
     }
 
     @Override
-    public PostResponse update(PostRequest requestDto, Long id, MultipartFile image) {
+    public PostResponse update(PostUpdateRequest requestDto, Long id, MultipartFile image) {
         return postRepo.findById(id)
                 .map(existingPost -> {
                     postMapper.updateFromDto(requestDto, existingPost);

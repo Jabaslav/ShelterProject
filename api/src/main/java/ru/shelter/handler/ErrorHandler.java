@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import ru.shelter.exception.AuthenticationException;
 import ru.shelter.exception.NotFoundException;
 import ru.shelter.exception.ValidationException;
 
@@ -61,6 +62,13 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse notFoundError(final AuthenticationException e) {
+        log.info("ERROR[401]: Произошла ошибка AuthenticationException: {}", e.getMessage());
+        return new ErrorResponse(e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse exceptionError(final Exception e) {
@@ -82,7 +90,7 @@ public class ErrorHandler {
         log.error("ERROR[500]: Произошла ошибка Exception: {}", e.getMessage(), e);
         return new ErrorResponse(message);
     }
-// TODO не получает сообщения о конкретном ограничении бд
+
     private String extractConstraintName(Throwable e) {
         // Пример для Hibernate
         if (e instanceof ConstraintViolationException cve) {
