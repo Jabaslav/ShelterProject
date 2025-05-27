@@ -1,0 +1,58 @@
+/* Cursor */
+.cursorAuto {
+  cursor: auto;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.cursorWait {
+  cursor: wait;
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
+
+/* User select */
+.selectNone {
+  user-select: none;
+}
+
+.selectText {
+  user-select: text;
+}
+
+.selectAll {
+  user-select: all;
+}
+
+/* Pointer events */
+.pointerEventsNone {
+  pointer-events: none;
+}
+
+.pointerEventsAuto {
+  pointer-events: auto;
+}
+
+/* Outline */
+.outlineNone {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.outline {
+  outline-style: solid;
+}
+
+.focusOutlineNone:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focusOutlinePrimary:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

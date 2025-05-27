@@ -1,0 +1,70 @@
+/* Box shadow */
+.shadowNone {
+  box-shadow: none;
+}
+
+.shadowSm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow {
+  box-shadow: var(--shadow-md);
+}
+
+.shadowLg {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Opacity */
+.opacity0 {
+  opacity: 0;
+}
+
+.opacity50 {
+  opacity: 0.5;
+}
+
+.opacity100 {
+  opacity: 1;
+}
+
+/* Transition */
+.transition {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transitionColors {
+  transition-property: background-color, border-color, color;
+}
+
+.transitionOpacity {
+  transition-property: opacity;
+}
+
+.transitionTransform {
+  transition-property: transform;
+}
+
+/* Transform */
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translateX0 {
+  --tw-translate-x: 0;
+}
+
+.translateY0 {
+  --tw-translate-y: 0;
+}
+
+.rotate0 {
+  --tw-rotate: 0;
+}
+
+.scale100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+}

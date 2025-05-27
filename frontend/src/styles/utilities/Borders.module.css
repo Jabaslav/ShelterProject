@@ -1,0 +1,79 @@
+/* Border radius */
+.roundedNone {
+  border-radius: 0;
+}
+
+.roundedSm {
+  border-radius: 2px;
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}
+
+.roundedLg {
+  border-radius: calc(var(--border-radius) * 2);
+}
+
+.roundedFull {
+  border-radius: 9999px;
+}
+
+/* Border width */
+.border0 {
+  border-width: 0;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border2 {
+  border-width: 2px;
+}
+
+.borderT {
+  border-top-width: 1px;
+}
+
+.borderR {
+  border-right-width: 1px;
+}
+
+.borderB {
+  border-bottom-width: 1px;
+}
+
+.borderL {
+  border-left-width: 1px;
+}
+
+/* Border colors */
+.borderTransparent {
+  border-color: transparent;
+}
+
+.borderPrimary {
+  border-color: var(--primary);
+}
+
+.borderSecondary {
+  border-color: var(--border-color);
+}
+
+.borderError {
+  border-color: var(--error);
+}
+
+/* Border styles */
+.borderSolid {
+  border-style: solid;
+}
+
+.borderDashed {
+  border-style: dashed;
+}
+
+.borderDotted {
+  border-style: dotted;
+}

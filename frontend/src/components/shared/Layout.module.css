@@ -1,0 +1,31 @@
+.main {
+  padding: var(--space-lg) 0;
+  min-height: calc(100vh - 200px); /* Учитываем высоту header и footer */
+}
+
+.section {
+  padding: var(--space-xl) 0;
+}
+
+.sectionAlt {
+  background: var(--bg-secondary);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.twoColumns {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--space-xl);
+}
+
+@media (max-width: 992px) {
+  .twoColumns {
+    grid-template-columns: 1fr;
+  }
+}

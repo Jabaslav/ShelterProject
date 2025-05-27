@@ -1,0 +1,88 @@
+:root {
+  /* Цвета */
+  --primary: #4e7df1;
+  --primary-light: #7ba1ff;
+  --primary-dark: #3a5fc8;
+  --secondary: #f8f9fa;
+  --secondary-dark: #e9ecef;
+  --error: #e63946;
+  --error-light: #ff6b6b;
+  --success: #2a9d8f;
+  --warning: #f4a261;
+  --info: #4895ef;
+
+  /* Текст */
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+
+  /* Фон */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-dark: #212529;
+
+  /* Границы */
+  --border-color: #dee2e6;
+  --border-radius: 8px;
+
+  /* Тени */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Отступы */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+/* Темная тема */
+[data-theme="dark"] {
+  --primary: #5a86ff;
+  --primary-light: #7ba1ff;
+  --primary-dark: #3a5fc8;
+  --secondary: #343a40;
+  --secondary-dark: #212529;
+  --text-primary: #f8f9fa;
+  --text-secondary: #e9ecef;
+  --bg-primary: #212529;
+  --bg-secondary: #343a40;
+  --border-color: #495057;
+}

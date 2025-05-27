@@ -1,0 +1,73 @@
+.comment {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.commentAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: var(--space-sm);
+  object-fit: cover;
+}
+
+.commentAuthor {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.commentDate {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: var(--space-sm);
+}
+
+.commentContent {
+  margin-left: calc(32px + var(--space-sm));
+}
+
+.commentText {
+  margin-bottom: var(--space-sm);
+  white-space: pre-line;
+}
+
+.commentActions {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.commentAction {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.commentAction:hover {
+  color: var(--primary);
+}
+
+/* Форма добавления комментария */
+.commentForm {
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  margin-top: var(--space-md);
+}
+
+/* Ответы на комментарии */
+.commentReplies {
+  margin-left: var(--space-lg);
+  border-left: 2px solid var(--border-color);
+  padding-left: var(--space-md);
+}

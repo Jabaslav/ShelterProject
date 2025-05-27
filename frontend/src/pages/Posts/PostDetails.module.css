@@ -1,0 +1,62 @@
+.postHeader {
+  margin-bottom: var(--space-xl);
+}
+
+.postTitle {
+  font-size: 2rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+}
+
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+  color: var(--text-secondary);
+}
+
+.postAuthor {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.postAuthorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.postContent {
+  margin-bottom: var(--space-xl);
+  line-height: 1.8;
+}
+
+.postImage {
+  max-width: 100%;
+  border-radius: var(--border-radius);
+  margin: var(--space-lg) 0;
+}
+
+.commentsSection {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border-color);
+}
+
+.commentForm {
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+  .postTitle {
+    font-size: 1.5rem;
+  }
+  
+  .postMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+}

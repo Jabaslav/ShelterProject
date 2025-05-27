@@ -1,0 +1,118 @@
+/* Text sizes */
+.textXs {
+  font-size: 0.75rem; /* 12px */
+}
+
+.textSm {
+  font-size: 0.875rem; /* 14px */
+}
+
+.textBase {
+  font-size: 1rem; /* 16px */
+}
+
+.textLg {
+  font-size: 1.125rem; /* 18px */
+}
+
+.textXl {
+  font-size: 1.25rem; /* 20px */
+}
+
+.text2xl {
+  font-size: 1.5rem; /* 24px */
+}
+
+.text3xl {
+  font-size: 1.875rem; /* 30px */
+}
+
+/* Font weights */
+.fontLight {
+  font-weight: 300;
+}
+
+.fontNormal {
+  font-weight: 400;
+}
+
+.fontMedium {
+  font-weight: 500;
+}
+
+.fontBold {
+  font-weight: 700;
+}
+
+/* Text alignment */
+.textLeft {
+  text-align: left;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textRight {
+  text-align: right;
+}
+
+/* Text colors */
+.textPrimary {
+  color: var(--text-primary);
+}
+
+.textSecondary {
+  color: var(--text-secondary);
+}
+
+.textAccent {
+  color: var(--primary);
+}
+
+.textError {
+  color: var(--error);
+}
+
+.textSuccess {
+  color: var(--success);
+}
+
+/* Line height */
+.leadingTight {
+  line-height: 1.25;
+}
+
+.leadingNormal {
+  line-height: 1.5;
+}
+
+.leadingRelaxed {
+  line-height: 1.75;
+}
+
+/* Text transforms */
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+/* Text decoration */
+.underline {
+  text-decoration: underline;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+.noUnderline {
+  text-decoration: none;
+}

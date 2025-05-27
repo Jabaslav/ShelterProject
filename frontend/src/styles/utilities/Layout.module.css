@@ -1,0 +1,201 @@
+/* Display */
+.block {
+  display: block;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+}
+
+.inlineFlex {
+  display: inline-flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Flexbox */
+.flexRow {
+  flex-direction: row;
+}
+
+.flexCol {
+  flex-direction: column;
+}
+
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.justifyStart {
+  justify-content: flex-start;
+}
+
+.justifyEnd {
+  justify-content: flex-end;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.justifyBetween {
+  justify-content: space-between;
+}
+
+.justifyAround {
+  justify-content: space-around;
+}
+
+.itemsStart {
+  align-items: flex-start;
+}
+
+.itemsEnd {
+  align-items: flex-end;
+}
+
+.itemsCenter {
+  align-items: center;
+}
+
+.itemsBaseline {
+  align-items: baseline;
+}
+
+.itemsStretch {
+  align-items: stretch;
+}
+
+/* Grid */
+.gridCols1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.gridCols2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gridCols3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gap0 {
+  gap: 0;
+}
+
+.gap1 {
+  gap: var(--space-xs);
+}
+
+.gap2 {
+  gap: var(--space-sm);
+}
+
+.gap3 {
+  gap: var(--space-md);
+}
+
+.gap4 {
+  gap: var(--space-lg);
+}
+
+.gap5 {
+  gap: var(--space-xl);
+}
+
+/* Spacing */
+.m0 {
+  margin: 0;
+}
+
+.mt1 {
+  margin-top: var(--space-xs);
+}
+
+.mr1 {
+  margin-right: var(--space-xs);
+}
+
+.mb1 {
+  margin-bottom: var(--space-xs);
+}
+
+.ml1 {
+  margin-left: var(--space-xs);
+}
+
+/* Аналогично для других размеров и padding */
+
+.p1 {
+  padding: var(--space-xs);
+}
+
+.px2 {
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+.py3 {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+
+/* Width */
+.wFull {
+  width: 100%;
+}
+
+.wHalf {
+  width: 50%;
+}
+
+.wScreen {
+  width: 100vw;
+}
+
+.minW0 {
+  min-width: 0;
+}
+
+.maxWFull {
+  max-width: 100%;
+}
+
+.maxWScreen {
+  max-width: 100vw;
+}
+
+/* Height */
+.hFull {
+  height: 100%;
+}
+
+.hScreen {
+  height: 100vh;
+}
+
+.minH0 {
+  min-height: 0;
+}
+
+.maxHFull {
+  max-height: 100%;
+}
+
+.maxHScreen {
+  max-height: 100vh;
+}
